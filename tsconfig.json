@@ -19,6 +19,7 @@
       "~/styles/*": ["styles/*"],
       "~/public/*": ["public/*"],
       "~/pages/*": ["pages/*"],
+      "~/graphql/*": ["graphql/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
