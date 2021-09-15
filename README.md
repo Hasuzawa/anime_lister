@@ -3,7 +3,12 @@ This is a project on frontend API.
 
 ## Blueplan
 <details open>
-<ul>
+|Key                       |Value                     |
+|--------------------------|--------------------------|
+|Design                    |Figma                     |
+|Packge                    |npm, Webpack              |
+
+
     <li>Design</li><span>Figma</span>
     <li>Package, Module: npm, Webpack</li>
     <li>Editor: VS Code</li>
@@ -18,5 +23,9 @@ This is a project on frontend API.
     <li>Analytics: (?)</li>
 </ul>
 </details>
+
+## In search of site name...
+~~Anime Chart~~ (taken, anichart)
+~~Anime Lister~~ (taken, animelister)
 
 ## Technical commentary
