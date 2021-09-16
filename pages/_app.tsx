@@ -38,8 +38,8 @@ var variables = {
 };
 
 // Define the config we'll need for our Api request
-var url = 'https://graphql.anilist.co',
-    options = {
+var url = 'https://graphql.anilist.co';
+var  options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -101,18 +101,57 @@ function handleError(error:any) {
 
 //end of testing
 
-const GET_ANIME = gql`query ($id: Int) {
-  Media (id: $id, type: ANIME) {
+// const GET_ANIME = gql`query ($id: Int) {
+//   Media (id: $id, type: ANIME) {
+//     id
+//     title {
+//       romaji
+//       english
+//       native
+//     }
+//   }
+// }`;
+
+const GET_ANIME = gql`
+query ($id: Int){                   #id is a query argument
+  Media (id: $id, type: ANIME) {    #find all media with id = $id and type = ANIME
     id
     title {
       romaji
       english
       native
     }
+    coverImage {
+      large
+      extraLarge
+      medium
+      color
+    }
   }
-}`;
+}
+`;
+
+const SEARCH_ANIME = gql`
+  query ($query: String) {
+    AnimeSearch: Page {
+      media(search: $query, type: ANIME) {
+        id
+        title {
+          english
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  }
+`;
+
 
 export {GET_ANIME};
+
+// const FETCH_ANIME_IN_YEAR = gql`
+// `;
 
 
 

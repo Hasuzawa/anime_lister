@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 
+import Test from "~/components/Test";
+
 
 import Entries from "~/components/Entries";
 
@@ -18,6 +20,7 @@ const Home: NextPage = () => {
       {/* add custom scroller to this main */}
       <main id="main" className="w-280 max-h-full bg-red-300 overflow-y-auto">
         <Entries />
+        <Test />
       </main>
 
     </div>

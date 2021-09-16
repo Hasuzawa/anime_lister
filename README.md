@@ -1,9 +1,11 @@
 ## About
-This is a project on frontend API. 
+This is a personal project on frontend API. One of the goal is to provide a streamlined experience and maximise the
+effecive usage of screen area (optimised for 1440px x 900px screen). I have noticed that too often one has to scroll
+around to access the search bar or filter.
 
 ## Blueplan
 <details open>
-<ul>
+<!-- <ul>
     <li>Design</li><span>Figma</span>
     <li>Package, Module: npm, Webpack</li>
     <li>Editor: VS Code</li>
@@ -16,7 +18,8 @@ This is a project on frontend API.
     <li>CICD: GitHub Action</li>
     <li>Deploy: (?)</li>
     <li>Analytics: (?)</li>
-</ul>
+</ul> -->
+
 | Design          | Figma                               |
 |-----------------|-------------------------------------|
 | Package, Module | npm, Webpack                        |
@@ -30,9 +33,7 @@ This is a project on frontend API.
 | CICD            | GitHub Action                       |
 | Deploy          | (?)                                 |
 | Analytics       | (?)                                 |
-|                 |                                     |
-|                 |                                     |
-|                 |                                     |
+
 </details>
 
 ## In search of site name...
@@ -42,5 +43,5 @@ This is a project on frontend API.
 ## Technical commentary
 
 <ul>
-    <li>Connected to API by Apollo in POST method.</li>
+    <li>Connected to API using Apollo on POST method. It seems the head does not need to be set manually this time.</li>
 </ul>
