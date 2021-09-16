@@ -46,9 +46,9 @@ interface Media{
 
 }
 
-const Feed = (media: any) => {
+const Feed = ({media}: any) => {
     console.log("feed media is ", media);
-    if (media){
+    if (!media){
         return (
         <div>
             <h1>media is falsy</h1>

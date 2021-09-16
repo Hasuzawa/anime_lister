@@ -1,7 +1,7 @@
 import Feed from "~/components/Feed";
 import { motion } from "framer-motion";
 import { useQuery } from "@apollo/client";
-import { GET_ANIME } from "~/pages/_app";
+//import { GET_ANIME } from "~/pages/_app";
 import { gql } from "@apollo/client";
 
 // const Entries = () => {
@@ -48,14 +48,51 @@ const GET_ANIME_BY_YEAR = gql`
     }
 `;
 
+const GET_ANIME = gql`
+query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argument
+  Page {
+      media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: SCORE_DESC) {    #find all media with id = $id and type = ANIME
+        id
+        title {
+        romaji
+        english
+        native
+        }
+        coverImage {
+        large
+        extraLarge
+        medium
+        color
+        }
+    }
+  }
+}
+`;
+
 const Feeds = () => {
-    const { loading, error, data, fetchMore } = useQuery(GET_ANIME_BY_YEAR);
+    const { loading, error, data, fetchMore } = useQuery(GET_ANIME);
 
     if (loading) {return <h1>loading ...</h1>}
     if (error) {return <h1>error !!</h1>}
 
-    let results = data.media.map((media: any, idx: number) => (
-        <Feed media={media}/>
+    /* form of data
+        {
+            Page {
+                media [{
+                    id
+                    seasonYear
+                    ...
+                },
+                {
+
+                }]
+            }
+        }
+
+    */
+
+    let results: JSX.Element[] = data.Page.media.map((media: any, idx: number) => (
+        <Feed key={idx} media={media}/>
     )
     );
 

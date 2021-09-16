@@ -76,7 +76,7 @@ client.query({
     }
   }`,
   variables: variables
-}).then(result => console.log("this is by Apollo Client", result));
+})//.then(result => console.log("this is by Apollo Client", result));
 
 // Make the HTTP Api request
 fetch(url, options).then(handleResponse)
