@@ -1,29 +1,9 @@
 import Feed from "~/components/Feed";
 import { motion } from "framer-motion";
 import { useQuery } from "@apollo/client";
-//import { GET_ANIME } from "~/pages/_app";
 import { gql } from "@apollo/client";
 
-// const Entries = () => {
-//     const { loading, error, data, fetchMore } = useQuery(GET_ANIME, {variables: {id: 5678, offset: 0, limit: 30}});
 
-//     if (loading) {return <h1>loading ...</h1>}
-//     if (error) {return <h1>error !!</h1>}
-//     console.log(data);
-    
-
-//     let results = data.map( (Media: any, idx: number) => {return <Feed key={idx} media={Media}/>});
-    
-//     // let entries: JSX.Element[] = [];
-//     // for (let i = 0; i < 18; i++){
-//     //     entries.push(<Entry key={i}/>);
-//     // }
-//     return (
-//         <div className="flex flex-wrap m-4 justify-evenly gap-y-4">
-//             {results}
-//         </div>
-//     );
-// }
 const GET_ANIME_BY_YEAR = gql`
     query ($id: Int, $page: Int, $perPage: Int, $search: String, $seasonYear: Int = 2020) {
         Page (page: $page, perPage: $perPage) {
@@ -38,6 +18,7 @@ const GET_ANIME_BY_YEAR = gql`
             seasonYear
             season
             averageScore
+            
             title {
                 english
             }
@@ -48,21 +29,26 @@ const GET_ANIME_BY_YEAR = gql`
     }
 `;
 
+
 const GET_ANIME = gql`
 query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argument
   Page {
       media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: SCORE_DESC) {    #find all media with id = $id and type = ANIME
         id
+        seasonYear
+        season
+        averageScore
+        isAdult
+        siteUrl
+        #genres
+        #studios
         title {
-        romaji
-        english
-        native
+            english
         }
         coverImage {
-        large
-        extraLarge
-        medium
-        color
+            large
+            extraLarge
+            color
         }
     }
   }
@@ -84,7 +70,9 @@ const Feeds = () => {
                     ...
                 },
                 {
-
+                    id
+                    seasonYear
+                    ...
                 }]
             }
         }
@@ -103,5 +91,4 @@ const Feeds = () => {
     );
 }
 
-//export default Entries;
 export default Feeds;

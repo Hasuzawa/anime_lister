@@ -2,5 +2,8 @@
 
 //import { NextConfig } from "next";
 module.exports = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  images: {
+    domains: ["s4.anilist.co"]
+  }
 };

@@ -20,8 +20,9 @@ around to access the search bar or filter.
     <li>Analytics: (?)</li>
 </ul> -->
 
-| Design          | Figma                               |
+| Stage           | Tools                               |
 |-----------------|-------------------------------------|
+| Design          | Figma                               |
 | Package, Module | npm, Webpack                        |
 | Editor          | VS Code                             |
 | Frontend        | Next.js, React, Tailwind, HTML, CSS |
