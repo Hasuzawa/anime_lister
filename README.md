@@ -5,22 +5,8 @@ around to access the search bar or filter.
 
 ## Blueplan
 <details open>
-<!-- <ul>
-    <li>Design</li><span>Figma</span>
-    <li>Package, Module: npm, Webpack</li>
-    <li>Editor: VS Code</li>
-    <li>Frontend: Next.js, React, Tailwind, HTML, CSS</li>
-    <li>API: Apollo Client, GraphQL</li>
-    <li>Icon, Animation: Phosphor Icons, Framer Motion</li>
-    <li>Graphics: Gimp, Inkscape</li>
-    <li>Versioning: Git, GitHub</li>
-    <li>Testing: cypress</li>
-    <li>CICD: GitHub Action</li>
-    <li>Deploy: (?)</li>
-    <li>Analytics: (?)</li>
-</ul> -->
 
-| Stage           | Tools                               |
+| Process         | Tools                               |
 |-----------------|-------------------------------------|
 | Design          | Figma                               |
 | Package, Module | npm, Webpack                        |
@@ -36,6 +22,14 @@ around to access the search bar or filter.
 | Analytics       | (?)                                 |
 
 </details>
+
+## This project features
+
+<ul>
+    <li></li>
+    <li></li>
+</ul>
+to do list: shift key events, sorting
 
 ## In search of site name...
 ~~Anime Chart~~ (taken, anichart)<br />

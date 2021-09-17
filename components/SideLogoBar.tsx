@@ -7,10 +7,10 @@ const SideLogoBar = () => {
 
     return (
         <div className={"flex-none top-0 right-0 bottom-0 w-12      flex flex-col relative      border-r-4"}>
-            <div className={"flex-1"}>
+            <div className={"flex-1 flex flex-col items-center"}>
                 <Image size={logoSize} />
             </div>
-            <div className={"flex-none bottom-0 "}>
+            <div className={"flex-none bottom-0 flex flex-col items-center"}>
                 <ArrowCircleLeft size={logoSize} />
                 <ArrowFatLinesUp size={logoSize} />
             </div>
