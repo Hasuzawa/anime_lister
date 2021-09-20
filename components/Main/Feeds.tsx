@@ -58,9 +58,27 @@ query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argu
 }
 `;
 
+enum Season{
+    SPRING,
+    SUMMER,
+    FALL,
+    WINTER
+}
+
 interface Media{
-    id: number;
-    
+    id: number;                 //unique main key
+    seasonYear: number;         //YYYY
+    season: Season;             //one of the enum
+    averageScore: number;       //double
+    isAdult: boolean            //need filtering
+    siteUrl: string;            //url of site
+    title: {
+        english: string;        //English title
+    }
+    coverImage: {
+        extraLarge: string;     //url of image
+    }
+
 }
 
 const Feeds = () => {
@@ -99,19 +117,20 @@ const Feeds = () => {
     });
 
     //motion.div and layout is deliberately not used here.
+    // the "feeds" is where the y-scrolling happens.
     return (
         <>
-        <div className="flex w-full h-full flex-wrap m-4 justify-evenly gap-y-4 overflow-y-auto">
-            <AnimateSharedLayout>
-                {results}
-            </AnimateSharedLayout>
-            <div className="absolute top-0 left-0 bg-blue-300">
-                <span>current selected state is {selected.toString()}</span>
+            <div id="feeds" className="flex w-full h-full flex-wrap p-4 justify-evenly gap-y-4 overflow-y-auto scroll-smooth">
+                <AnimateSharedLayout>
+                    {results}
+                </AnimateSharedLayout>
+                <div className="absolute top-0 left-0 bg-blue-300">
+                    <span>current selected state is {selected.toString()}</span>
+                </div>
             </div>
-        </div>
-        { selected }
         </>
     );
 }
 
 export default Feeds;
+export { Season };

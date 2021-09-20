@@ -11,8 +11,8 @@ const SideLogoBar = (props: SideLogoBarProps) => {
     const logoSize = 40;
 
     function collapseExpandButton(isCollapsed: boolean = props.isCollapsed): JSX.Element {
-        return isCollapsed ? <ArrowCircleRight size={logoSize} onClick={props.toggleCollapsed} />
-                           : <ArrowCircleLeft size={logoSize} onClick={props.toggleCollapsed} />
+        return isCollapsed ? <ArrowCircleRight className={"cursor-pointer"} size={logoSize} onClick={props.toggleCollapsed} />
+                           : <ArrowCircleLeft className={"cursor-pointer"} size={logoSize} onClick={props.toggleCollapsed} />
     }
 
     return (
@@ -22,7 +22,11 @@ const SideLogoBar = (props: SideLogoBarProps) => {
             </div>
             <div className={"flex-none bottom-0 flex flex-col items-center"}>
                 {collapseExpandButton()}
-                <ArrowFatLinesUp size={logoSize} />
+                <ArrowFatLinesUp
+                    className="cursor-pointer" 
+                    size={logoSize}
+                    onClick={() => document.getElementById("feeds")?.scrollTo(0,0)}
+                />
             </div>
         </motion.div>
     );

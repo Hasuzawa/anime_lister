@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Link as LinkIcon, WarningCircle } from "phosphor-react";
 import { Dispatch, SetStateAction } from "react";
+import { Season } from "~/components/Main/Feeds";
 
 // interface FeedProps{
 //     name: string;   //name of anime
@@ -37,12 +38,7 @@ import { Dispatch, SetStateAction } from "react";
 //         </div>
 //     )
 // }
-enum Season{
-    SPRING,
-    SUMMER,
-    FALL,
-    WINTER
-}
+
 
 interface Media{
     id: number;
@@ -102,7 +98,12 @@ const Feed = (props: FeedProps) => {
     }
 
     return (
-        <motion.div className={"flex-none bg-white rounded-md shadow-2xl " + styles.feed} layoutId={media.id} onClick={() => props.setSelected(media.id)} >
+        <motion.div
+            className={"flex-none bg-white rounded-md shadow-2xl " + styles.feed}
+            layoutId={media.id.toString()}
+            onClick={() => props.setSelected(media.id)}
+            layout
+        >
             { content }
         </motion.div>
     );

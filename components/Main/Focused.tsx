@@ -17,6 +17,7 @@ const Focused = (props: any) => {
         <motion.div
             className="absolute inset-0 bg-black bg-opacity-30 flex z-10 justify-center items-center cursor-pointer"
             onClick={props.deselectSelected}
+            layout
         >
             {/* only deactivate when the overlay is clicked */}
             <motion.div
