@@ -1,4 +1,4 @@
-import Feed from "~/components/Feed";
+import Feed from "~/components/Main/Feed";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@apollo/client";

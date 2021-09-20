@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        "280": "70em"
+        "280": "70em",
+        "68": "17em"    //for control panel
       }
     },
   },
