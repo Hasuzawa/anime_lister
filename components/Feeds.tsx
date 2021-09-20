@@ -1,4 +1,5 @@
 import Feed from "~/components/Feed";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
@@ -57,6 +58,7 @@ query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argu
 
 const Feeds = () => {
     const { loading, error, data, fetchMore } = useQuery(GET_ANIME);
+    const [ selected, SetSelected ] = useState<number | false>(false);
 
     if (loading) {return <h1>loading ...</h1>}
     if (error) {return <h1>error !!</h1>}
@@ -84,8 +86,9 @@ const Feeds = () => {
     )
     );
 
+    //motion.div and layout is deliberately not used here.
     return (
-        <div className="flex flex-wrap m-4 justify-evenly gap-y-4">
+        <div className="flex flex-wrap m-4 justify-evenly gap-y-4" >
             {results}
         </div>
     );
