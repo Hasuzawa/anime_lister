@@ -26,8 +26,8 @@ around to access the search bar or filter.
 ## This project features
 
 <ul>
-    <li></li>
-    <li></li>
+    <li>Apollo Client, GraphQL & third party API.</li>
+    <li>Framer Motion. Making website like a mobile app.</li>
 </ul>
 to do list: shift key events, sorting
 
@@ -39,4 +39,5 @@ to do list: shift key events, sorting
 
 <ul>
     <li>Connected to API using Apollo on POST method. It seems the head does not need to be set manually this time.</li>
+    <li>I have included some animation that would shift HTML elements around. I am not sure how it would look in the end product.
 </ul>

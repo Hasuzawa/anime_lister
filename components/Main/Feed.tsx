@@ -6,12 +6,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Link as LinkIcon, WarningCircle } from "phosphor-react";
-interface FeedProps{
-    name: string;   //name of anime
-    cover: string;  //url to cover image
-    description: string;       //description
-    status: boolean | undefined;
-}
+import { Dispatch, SetStateAction } from "react";
+
+// interface FeedProps{
+//     name: string;   //name of anime
+//     cover: string;  //url to cover image
+//     description: string;       //description
+//     status: boolean | undefined;
+// }
 
 
 // const Feed = (media: any) => {
@@ -48,10 +50,17 @@ interface Media{
     season: Season;
 
 }
+interface FeedProps{
+    media: any;
+    setSelected: Dispatch<SetStateAction<number | false>>;
+}
 //imageMode / detailsMode
 
-const Feed = ({media}: any) => {
+const Feed = (props: FeedProps) => {
     let content: JSX.Element;
+    const media = props.media;
+
+    // error in media
     if (!media){
         content = (
             // <div className={"flex-none min-w-full min-h-full w-full h-full flex"}>
@@ -64,6 +73,7 @@ const Feed = ({media}: any) => {
 
     }// else if (media is adult only) {}
 
+    // display data
     else {
         content = (
             <>
@@ -92,9 +102,9 @@ const Feed = ({media}: any) => {
     }
 
     return (
-        <div className={"flex-none bg-white rounded-md shadow-2xl " + styles.feed}>
+        <motion.div className={"flex-none bg-white rounded-md shadow-2xl " + styles.feed} layoutId={media.id} onClick={() => props.setSelected(media.id)} >
             { content }
-        </div>
+        </motion.div>
     );
 }
 

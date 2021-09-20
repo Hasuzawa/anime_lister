@@ -1,6 +1,8 @@
 import Feed from "~/components/Main/Feed";
+import Focused from "~/components/Main/Focused";
+
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimateSharedLayout } from "framer-motion";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 
@@ -56,9 +58,15 @@ query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argu
 }
 `;
 
+interface Media{
+    id: number;
+    
+}
+
 const Feeds = () => {
     const { loading, error, data, fetchMore } = useQuery(GET_ANIME);
-    const [ selected, SetSelected ] = useState<number | false>(false);
+    const [ selected, setSelected ] = useState<number | false>(false);
+    const deselectSelected = () => setSelected(false);
 
     if (loading) {return <h1>loading ...</h1>}
     if (error) {return <h1>error !!</h1>}
@@ -80,17 +88,29 @@ const Feeds = () => {
         }
 
     */
+   let focused: JSX.Element | null = null;
 
-    let results: JSX.Element[] = data.Page.media.map((media: any, idx: number) => (
-        <Feed key={idx} media={media}/>
-    )
-    );
+    let results: JSX.Element[] = data.Page.media.map((media: any, idx: number) => {
+        if (media.id != selected){
+            return <Feed key={idx} media={media} setSelected={setSelected} />
+        } else {
+            return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
+        }
+    });
 
     //motion.div and layout is deliberately not used here.
     return (
-        <div className="flex flex-wrap m-4 justify-evenly gap-y-4" >
-            {results}
+        <>
+        <div className="flex w-full h-full flex-wrap m-4 justify-evenly gap-y-4 overflow-y-auto">
+            <AnimateSharedLayout>
+                {results}
+            </AnimateSharedLayout>
+            <div className="absolute top-0 left-0 bg-blue-300">
+                <span>current selected state is {selected.toString()}</span>
+            </div>
         </div>
+        { selected }
+        </>
     );
 }
 
