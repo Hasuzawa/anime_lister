@@ -9,6 +9,7 @@ import Main from "~/components/Main/Main";
 const Home: NextPage = () => {
   const [ isCollapsed, setCollapsed] = useState<boolean>(false);
   const toggleCollapsed = () => setCollapsed(!isCollapsed);
+  const [ scrollYProgress, setScrollYProgress ] = useState<number>(0);  //0 at top, 1 when at bottom
 
 
   return (
@@ -20,9 +21,16 @@ const Home: NextPage = () => {
         <span>collapse state is {isCollapsed.toString()}</span>
       </div>
 
-      <SideBar isCollapsed={isCollapsed} toggleCollapsed={toggleCollapsed} />
+      <SideBar
+        isCollapsed={isCollapsed}
+        toggleCollapsed={toggleCollapsed}
+        scrollYProgress={scrollYProgress}
+      />
 
-      <Main />
+      <Main setScrollYProgress={setScrollYProgress} />
+      <div className="absolute top-0 left-0">
+        <h1>{scrollYProgress}</h1>
+      </div>
     </div>
   )
 }

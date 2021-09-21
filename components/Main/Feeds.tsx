@@ -1,8 +1,8 @@
 import Feed from "~/components/Main/Feed";
 import Focused from "~/components/Main/Focused";
 
-import { useState } from "react";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
+import { motion, AnimateSharedLayout, useElementScroll } from "framer-motion";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 
@@ -81,13 +81,33 @@ interface Media{
 
 }
 
-const Feeds = () => {
+interface FeedsProps{
+    setScrollYProgress: Dispatch<SetStateAction<number>>;
+}
+
+const Feeds = (props: FeedsProps) => {
+    // for GraphQL API
     const { loading, error, data, fetchMore } = useQuery(GET_ANIME);
+
+    // for selected element
     const [ selected, setSelected ] = useState<number | false>(false);
     const deselectSelected = () => setSelected(false);
 
-    if (loading) {return <h1>loading ...</h1>}
-    if (error) {return <h1>error !!</h1>}
+    // for scroll Y progress
+    const ref = useRef<HTMLDivElement>(null);   //hook it to the scrolling div
+    if (ref != null){
+        const { scrollYProgress } = useElementScroll(ref);
+        useEffect(() => {
+            scrollYProgress.onChange(props.setScrollYProgress);     // send scrollYProgress back to index.tsx
+        }, [scrollYProgress])
+    }
+
+    // Ideally I should render all under one div, instead of hooking them into a filler div when loading/error
+    if (loading) {return <div ref={ref}><h1>loading ...</h1></div>}
+    if (error) {return <div ref={ref}><h1>error !!</h1></div>}
+    
+    
+    
 
     /* form of data
         {
@@ -120,7 +140,11 @@ const Feeds = () => {
     // the "feeds" is where the y-scrolling happens.
     return (
         <>
-            <div id="feeds" className="flex w-full h-full flex-wrap p-4 justify-evenly gap-y-4 overflow-y-auto scroll-smooth">
+            <div
+                id="feeds"
+                className="flex w-full h-full flex-wrap p-4 justify-evenly gap-y-4 overflow-y-auto scroll-smooth"
+                ref={ref}
+            >   
                 <AnimateSharedLayout>
                     {results}
                 </AnimateSharedLayout>

@@ -1,7 +1,7 @@
 ## About
 This is a personal project on frontend API. One of the goal is to provide a streamlined experience and maximise the
 effecive usage of screen area (optimised for 1440px x 900px screen). I have noticed that too often one has to scroll
-around to access the search bar or filter.
+around to access the search bar or filter. This is a webpage that tackles the problem.
 
 ## Blueplan
 <details open>
@@ -40,4 +40,8 @@ to do list: shift key events, sorting
 <ul>
     <li>Connected to API using Apollo on POST method. It seems the head does not need to be set manually this time.</li>
     <li>I have included some animation that would shift HTML elements around. I am not sure how it would look in the end product.
+    <li>As I expected, the transformations due to animation is causing some performance issue. I should probably turn off
+        unnecessary transitory stylings and focus only on the start and end state.</li>
+    <li>implemented y-scroll progress indicator. That was more laborious than I have first thought. I have experience with
+        vector art and .svg. But to not draw but code it is an entirely different process.
 </ul>

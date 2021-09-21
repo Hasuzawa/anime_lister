@@ -6,6 +6,7 @@ import SideLogoBar from "~/components/SideBar/SideLogoBar"
 interface SideBarProps{
     isCollapsed: boolean;
     toggleCollapsed: () => void;
+    scrollYProgress: number;
 }
 
 
@@ -36,7 +37,12 @@ const SideBar = (props: SideBarProps) => {
                 </motion.div>
             
             </motion.div>
-            <SideLogoBar isCollapsed={isCollapsed} toggleCollapsed={toggleCollapsed} />
+            {/* ...props ? */}
+            <SideLogoBar
+                isCollapsed={isCollapsed}
+                toggleCollapsed={toggleCollapsed}
+                scrollYProgress={props.scrollYProgress}     
+            />
         </motion.div>
 
     );
