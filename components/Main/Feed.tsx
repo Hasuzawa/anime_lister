@@ -55,6 +55,7 @@ interface FeedProps{
 const Feed = (props: FeedProps) => {
     let content: JSX.Element;
     const media = props.media;
+    console.log(media);
 
     // error in media
     if (!media){

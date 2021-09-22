@@ -9,6 +9,7 @@ import Main from "~/components/Main/Main";
 const Home: NextPage = () => {
   const [ isCollapsed, setCollapsed] = useState<boolean>(false);
   const toggleCollapsed = () => setCollapsed(!isCollapsed);
+  
   const [ scrollYProgress, setScrollYProgress ] = useState<number>(0);  //0 at top, 1 when at bottom
 
 

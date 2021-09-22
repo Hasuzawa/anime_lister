@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import SideLogoBar from "~/components/SideBar/SideLogoBar"
+import SortMenu from "~/components/SideBar/SortMenu";
 
 
 interface SideBarProps{
@@ -29,7 +30,13 @@ const SideBar = (props: SideBarProps) => {
                     {/* place a corner github here? */}
                 </motion.div>
                 <motion.div id="panel-middle" className="p-4" >
+                    {/* I ought to implement my own input components */}
+
                     <motion.input type="text" layout></motion.input>
+                    <input type="number"></input>
+
+                    <SortMenu />
+
                 </motion.div>
                 <motion.div id="panel-bottom" className="p-4 flex flex-col items-center" layout>
                     <Link href={HasuzawaLink}><a>Created by Hasuzawa</a></Link>

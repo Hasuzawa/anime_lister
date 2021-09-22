@@ -39,12 +39,15 @@ query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argu
       media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: SCORE_DESC) {    #find all media with id = $id and type = ANIME
         id
         seasonYear
-        season
+        season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
         averageScore
         isAdult
         siteUrl
         #genres
         #studios
+        episodes
+        popularity
+        status              #will be returned as a string of "FINISHED", "RELEASING", and a few more possible strings
         title {
             english
         }
@@ -52,6 +55,13 @@ query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argu
             large
             extraLarge
             color
+        }
+        description
+        studios(isMain: true) {       #filter by main here, would only has one studio
+            nodes {
+                id
+                name
+            }
         }
     }
   }

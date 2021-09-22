@@ -21,11 +21,25 @@ const Focused = (props: any) => {
         >
             {/* only deactivate when the overlay is clicked */}
             <motion.div
-                className={"w-3/4 h-3/4 bg-blue-300 cursor-default"}
+                className={"w-3/4 h-3/4 bg-white cursor-default relative p-4 flex"}
                 layoutId={props.media.id.toString()}
                 onClick={(e) => {e.stopPropagation()}}
             >
-                <Image src={media.coverImage.extraLarge} width={200} height={350} />
+                <X size={44} className="absolute top-0 right-0 cursor-pointer" onClick={props.deselectSelected}/>
+                <div className="flex-none w-3/10 bg-blue-300 ">
+                    <Image src={media.coverImage.extraLarge} width={300} height={500} />
+                </div>
+                <div className="flex-none w-7/10 flex flex-col p-4 bg-red-300">
+                    <span>{media.title.english}</span>
+
+                </div>
+                
+                <div className="flex flex-col">
+                </div>
+                
+
+
+
             </motion.div>
 
         </motion.div>
