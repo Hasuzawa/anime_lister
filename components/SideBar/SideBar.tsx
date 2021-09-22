@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import SideLogoBar from "~/components/SideBar/SideLogoBar"
+
+import FilterMenu from "~/components/SideBar/FilterMenu";
 import SortMenu from "~/components/SideBar/SortMenu";
 
 
@@ -25,7 +27,7 @@ const SideBar = (props: SideBarProps) => {
             className={"flex-none overflow-hidden bg-pink-400" + (isCollapsed ? " w-0" : " w-68")}
             layout
             >
-                <motion.div id="panel-top" className="p-4 bg-yellow-300">
+                <motion.div id="panel-top" className="p-4 bg-yellow-300 h-28">
                     <motion.h1 layout>logo here</motion.h1>
                     {/* place a corner github here? */}
                 </motion.div>
@@ -35,6 +37,7 @@ const SideBar = (props: SideBarProps) => {
                     <motion.input type="text" layout></motion.input>
                     <input type="number"></input>
 
+                    <FilterMenu />
                     <SortMenu />
 
                 </motion.div>

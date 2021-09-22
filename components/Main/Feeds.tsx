@@ -32,11 +32,47 @@ const GET_ANIME_BY_YEAR = gql`
     }
 `;
 
+enum MediaSort {
+    SCORE_DESC,         //average score
+    SCORE,              //no order defaults to ascending
+    POPULARITY,
+    POPULARITY_DESC,
+    TITLE_ENGLISH,          //a b c...
+    TITLE_ENGLISH_DESC,
+    START_DATE,
+    START_DATE_DESC,
+}
 
+enum MediaStatus {
+    FINISHED,
+    RELEASING,
+    NOT_YET_RELEASED,
+    CANCELLED,
+    HIATUS
+}
+
+enum MediaFormat {
+    TV,
+    TV_SHORT,
+    MOVIE,
+    SPECIAL,
+    OVA,
+    ONA,
+    MUSIC,
+    MANGA,
+    NOVEL,
+    ONE_SHOT
+}
+
+// pass arguments when using the useQuery hook
+
+// the string search yields very weird result
 const GET_ANIME = gql`
-query ($id: Int, $seasonYear: Int = 2021){                   #id is a query argument
+query ($id: Int, $seasonYear: Int = 2020, $sortOrder: [MediaSort] = POPULARITY_DESC, $stringSearch: String
+    , $format: [MediaFormat]){                   #id is a query argument
   Page {
-      media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: SCORE_DESC) {    #find all media with id = $id and type = ANIME
+      media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: $sortOrder, search: $stringSearch
+        , format_in: $format) {    #find all media with id = $id and type = ANIME
         id
         seasonYear
         season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
