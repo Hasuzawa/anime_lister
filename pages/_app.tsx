@@ -10,7 +10,17 @@ console.log(uri);
 
 const client = new ApolloClient({
   uri: uri,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(
+    {
+      typePolicies: {
+        Query: {
+          fields: {
+            
+          }
+        }
+      }
+    }
+  )
 });
 
 //client

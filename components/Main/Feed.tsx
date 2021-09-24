@@ -55,7 +55,7 @@ interface FeedProps{
 const Feed = (props: FeedProps) => {
     let content: JSX.Element;
     const media = props.media;
-    console.log(media);
+    //console.log(media);
 
     // error in media
     if (!media){
@@ -79,7 +79,7 @@ const Feed = (props: FeedProps) => {
                         src={media.coverImage.extraLarge}
                         className={""}
                         layout={"fill"}
-                        objectFit={"contain"}
+                        objectFit={"cover"} // "contain" will have some areas uncovered
                         priority
                     />
                 </div>

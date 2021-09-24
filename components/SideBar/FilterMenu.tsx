@@ -14,9 +14,21 @@ const FilterMenu = () => {
                 <span>Filter</span>
             </div>
             <div className="flex flex-col">
-                <span>Year</span>
-                <span>Status</span>
-                <span>Format</span>
+                <div>
+                    <span>Year</span>
+                    <input type="number" />
+                </div>
+                <div>
+                    <span>Status</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>Format</span>
+                    <select>
+                        <option>option 1</option>
+                        <option>option 2</option>
+                    </select>
+                </div>
             </div>
         </div>
     );

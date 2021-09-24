@@ -11,7 +11,8 @@ interface Focused{
 
 const Focused = (props: any) => {
     const media = props.media;
-    //a 
+    //console.log(media);
+    
     return (
         // overlay backdrop of <Main>
         <motion.div
@@ -31,7 +32,9 @@ const Focused = (props: any) => {
                 </div>
                 <div className="flex-none w-7/10 flex flex-col p-4 bg-red-300">
                     <span>{media.title.english}</span>
-
+                    <span>{media.studios.nodes[0].name}</span>
+                    <span>{media.seasonYear}</span>
+                    <span>{media.season}</span>
                 </div>
                 
                 <div className="flex flex-col">
