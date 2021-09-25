@@ -19,8 +19,9 @@
       "~/styles/*": ["styles/*"],
       "~/public/*": ["public/*"],
       "~/pages/*": ["pages/*"],
-      "~/graphql/*": ["graphql/*"]
-    }
+      "~/graphql/*": ["graphql/*"],
+      "~/stores/*": ["stores/*"]
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

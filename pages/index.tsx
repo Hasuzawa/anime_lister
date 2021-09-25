@@ -1,12 +1,19 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import SideBar from "~/components/SideBar/SideBar";
 import Main from "~/components/Main/Main";
 
+import { observer } from "mobx-react-lite";
+import { FilterFieldsContext } from '~/stores/stores';
 
-const Home: NextPage = () => {
+// if you don't remember observer wrapper, component will NOT re-render when one of the props it reads changes (but still will
+// reflect the change if it is re-rendered some other way)
+const Home: NextPage = observer(() => {
+  const filterFields = useContext(FilterFieldsContext);
+
+
   const [ isCollapsed, setCollapsed] = useState<boolean>(false);
   const toggleCollapsed = () => setCollapsed(!isCollapsed);
   
@@ -18,8 +25,11 @@ const Home: NextPage = () => {
       <Head>
         <title>Anime Lister</title>
       </Head>
-      <div className="absolute top-0 right-0 bg-yellow-300 z-10">
+      <div className="absolute top-0 right-0 bg-yellow-300 z-10 flex flex-col">
         <span>collapse state is {isCollapsed.toString()}</span>
+        <span>current year is {filterFields.year}</span>
+        <span>current status is {filterFields.status}</span>
+        <span>current format is {filterFields.format}</span>
       </div>
 
       <SideBar
@@ -34,6 +44,6 @@ const Home: NextPage = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Home

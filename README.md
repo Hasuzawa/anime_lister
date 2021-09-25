@@ -12,6 +12,7 @@ around to access the search bar or filter. This is a webpage that tackles the pr
 | Package, Module | npm, Webpack                        |
 | Editor          | VS Code                             |
 | Frontend        | Next.js, React, Tailwind, HTML, CSS |
+| State Management| MobX                                |
 | API             | Apollo Client, GraphQL, AniList     |
 | Icon, Animation | Phosphor Icons, Framer Motion       |
 | Graphics        | Gimp, Inkscape                      |
@@ -43,5 +44,8 @@ to do list: shift key events, sorting
     <li>As I expected, the transformations due to animation is causing some performance issue. I should probably turn off
         unnecessary transitory stylings and focus only on the start and end state.</li>
     <li>implemented y-scroll progress indicator. That was more laborious than I have first thought. I have experience with
-        vector art and .svg. But to not draw but code it is an entirely different process.
+        vector art and .svg. But to not draw but code it is an entirely different process.</li>
+    <li>Incorporated MobX. Too many prop-drilling across components. Although the MobX I implemented is just slightly barely
+        better than a context of useState, its benefit will manifest in larger apps. 
+    </li>
 </ul>

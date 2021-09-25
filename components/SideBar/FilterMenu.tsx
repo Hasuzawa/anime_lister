@@ -1,13 +1,17 @@
 import { Funnel } from "phosphor-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { motion, usePresence } from "framer-motion";
 import Select from "~/components/SideBar/Select";
 import { MediaStatus, MediaFormat } from "~/components/enums";
 
+import { observer } from "mobx-react-lite";
 
 
+import { FilterFieldsContext } from "~/stores/stores";
 
-const FilterMenu = () => {
+const FilterMenu = observer(() => {
+    const filterFields = useContext(FilterFieldsContext);
+    console.log(filterFields);
 
     const lastSupportedYear = 1930;
     const currentYear = new Date().getFullYear();
@@ -24,9 +28,13 @@ const FilterMenu = () => {
 
     const [ format, setFormat ] = useState<MediaFormat>();
 
+
+
     const logoSize = 40;
     return (
         <div className="border-black border-4">
+            <button onClick={() => filterFields.setYear(1995)}>testing mobx</button>
+            <span>{filterFields.year}</span>
             <div className="flex justify-center">
 
                 <Funnel size={logoSize} />
@@ -63,6 +71,6 @@ const FilterMenu = () => {
             </div>
         </div>
     );
-}
+})
 
 export default FilterMenu;

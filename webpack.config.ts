@@ -10,7 +10,8 @@ const config: webpack.Configuration = {
             "~/components": path.resolve(__dirname, "components/"),
             "~/public": path.resolve(__dirname, "public/"),
             "~/pages": path.resolve(__dirname, "pages/"),
-            "~/graphql": path.resolve(__dirname, "graphql/")
+            "~/graphql": path.resolve(__dirname, "graphql/"),
+            "~/stores": path.resolve(__dirname, "stores/")
         },
         extensions: [".css", ".sass", ".scss", ".tsx"]   //allow import without these extensions 
     },
