@@ -5,69 +5,13 @@ import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
 import { motion, AnimateSharedLayout, useElementScroll } from "framer-motion";
 import { useQuery, gql } from "@apollo/client";
 
+import { Season } from "~/components/enums";
 
-
-const GET_ANIME_BY_YEAR = gql`
-    query ($id: Int, $page: Int, $perPage: Int, $search: String, $seasonYear: Int = 2020) {
-        Page (page: $page, perPage: $perPage) {
-            total
-            current
-            lastPage
-            hasNextPage
-            perPage
-        }
-        media (id: $id, seasonYear: $seaosnYear, search: $search, sort: SCORE_DESC, type: ANIME) {
-            id
-            seasonYear
-            season
-            averageScore
-            
-            title {
-                english
-            }
-            coverImage {
-                large
-            }
-        }
-    }
-`;
-
-enum MediaSort {
-    SCORE_DESC,         //average score
-    SCORE,              //no order defaults to ascending
-    POPULARITY,
-    POPULARITY_DESC,
-    TITLE_ENGLISH,          //a b c...
-    TITLE_ENGLISH_DESC,
-    START_DATE,
-    START_DATE_DESC,
-}
-
-enum MediaStatus {
-    FINISHED,
-    RELEASING,
-    NOT_YET_RELEASED,
-    CANCELLED,
-    HIATUS
-}
-
-enum MediaFormat {
-    TV,
-    TV_SHORT,
-    MOVIE,
-    SPECIAL,
-    OVA,
-    ONA,
-    MUSIC,
-    MANGA,
-    NOVEL,
-    ONE_SHOT
-}
 
 // pass arguments when using the useQuery hook
 
 // the string search yields very weird result
-const GET_ANIME = gql`
+const GET_ANIMES = gql`
 query ($page: Int, $perPage: Int, $id: Int, $seasonYear: Int = 2020, $sortOrder: [MediaSort] = POPULARITY_DESC, $stringSearch: String
     , $format: [MediaFormat]){                   #id is a query argument
     Page(page: $page, perPage: $perPage) {
@@ -104,12 +48,7 @@ query ($page: Int, $perPage: Int, $id: Int, $seasonYear: Int = 2020, $sortOrder:
 }
 `;
 
-enum Season{
-    SPRING,
-    SUMMER,
-    FALL,
-    WINTER
-}
+
 
 interface Media{
     id: number;                 //unique main key
@@ -133,7 +72,15 @@ interface FeedsProps{
 
 const Feeds = (props: FeedsProps) => {
     // for GraphQL API
-    const { loading, error, data, fetchMore } = useQuery(GET_ANIME);
+    const { loading, error, data, fetchMore } = useQuery(
+        GET_ANIMES,
+        {
+            variables: {
+                page: 1,
+                perPage: 30
+            }
+        }
+    );
     const loadMore = () => {
         fetchMore(
             {

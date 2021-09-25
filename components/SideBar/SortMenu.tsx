@@ -1,24 +1,16 @@
 import { SortAscending, SortDescending, ListNumbers} from "phosphor-react";
 import { useState } from "react";
 import { motion, usePresence } from "framer-motion";
+import { SortField, SortOrder } from "~/components/enums";
+import Select from "~/components/SideBar/Select";
 
-enum SortField {        //note: the string value are for sort menu, not for GraphQL
-    TITLE = "title",        //i.e. abcd ...
-    AVERAGE_SCORE = "average score",
-    POPULARITY = "popularity",
-    YEAR = "year",
-};
 
-enum SortOrder {
-    ASCENDING = "ascending",
-    DESCENDING = "descending"
-};
 
 const SortMenu = () => {
     const [ sortOrder, setSortOrder ] = useState<SortOrder>(SortOrder.DESCENDING);
     const toggleSort = () => sortOrder === SortOrder.ASCENDING ? setSortOrder(SortOrder.DESCENDING) : setSortOrder(SortOrder.ASCENDING);
 
-    const [ sortField, setSortField ] = useState<string>("");
+    const [ sortField, setSortField ] = useState<SortField>(SortField.POPULARITY);
     const [ hovered, setHovered ] = useState<boolean>(false);
     const toggleHovered = () => setHovered(!hovered);
 
@@ -36,30 +28,17 @@ const SortMenu = () => {
                     <ListNumbers size={iconSize} />
                 </div>
                 
-                <div>
+                <div className="flex flex-row">
                     <span>Sort by</span>
-                        <div className="w-full h-16 bg-white rounded-lg relative"
-                            onMouseEnter={() => setHovered(true)}
-                            onMouseLeave={() => setHovered(false)}
-                        >
-                            {hovered &&
-                                <ul className="absolute top-0 bg-green-300 h-96 w-60">
-                                    {Object.values(SortField).map((element, idx: number) =>
-                                        <li
-                                            key={idx}
-                                            className="list-none cursor-pointer text-center"
-                                            onClick={() => {setSortField(element); setHovered(false);}}
-                                        >
-                                            {element}
-                                        </li>
-                                    )}
-                                </ul>
-                            }
-                        <h1>{sortField}</h1>
-                    </div>
+                    <Select<SortField>
+                        selected={sortField}
+                        setSelected={setSortField}
+                        options={Object.values(SortField)}
+                        width={160}
+                    />
                 </div>
 
-
+                
                 <div className="flex items-center cursor-pointer" onClick={toggleSort} >
                     {sortOrder === SortOrder.ASCENDING ?
                         <SortAscending {...commonProps} /> :
