@@ -19,7 +19,7 @@ enum MediaSort {
  * filter by media status, defaults to NONE
  */
 enum MediaStatus {
-    NONE = "Any",
+    ANY = "Any",
     FINISHED = "Finished",
     RELEASING = "Airing",
     NOT_YET_RELEASED = "Not yet Released",
@@ -27,19 +27,12 @@ enum MediaStatus {
     HIATUS = "On Hiatus",
 }
 
-var mediaStatusReverseMap = new Map<string, MediaStatus>();
-Object.keys(MediaStatus).forEach((status: any) => {
-    // const value = MediaStatus[];
-    // mediaStatusReverseMap.set(MediaStatus[status], status);
-    //mediaStatusReverseMap[MediaStatus[status]] = status;
-})
-
 /**
  * @description
  * filter by media format, defaults to NONE
  */
 enum MediaFormat {
-    NONE = "Any",
+    ANY = "Any",
     TV = "TV",
     TV_SHORT = "Short TV",
     MOVIE = "Movie",
@@ -47,9 +40,9 @@ enum MediaFormat {
     OVA = "OVA",
     ONA = "ONA",
     MUSIC = "Music",
-    MANGA = "Manga",
-    NOVEL = "Novel",
-    ONE_SHOT = "One Shot"
+    //MANGA = "Manga",      the site focus on anime
+    //NOVEL = "Novel",
+    //ONE_SHOT = "One Shot"
 }
 
 
@@ -78,5 +71,11 @@ enum SortOrder {
     DESCENDING = "descending"
 };
 
+// e should be typeof E
+function enumKeyFromValue<E extends object, V>(e: E, value: V): any {
+    const key: any = Object.keys(e)[Object.values(e).indexOf(value)];
+    return key;
+}
 
 export { MediaSort, MediaStatus, MediaFormat, Season, SortField, SortOrder };
+export { enumKeyFromValue };

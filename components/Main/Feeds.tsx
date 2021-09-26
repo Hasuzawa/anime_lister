@@ -14,40 +14,38 @@ import { FilterFieldsContext } from "~/stores/stores";
 
 // the string search yields very weird result
 const GET_ANIMES = gql`
-query ($page: Int, $perPage: Int, $id: Int, $year: Int, $sortOrder: [MediaSort] = POPULARITY_DESC, $stringSearch: String
-    , $format: [MediaFormat]){                   #id is a query argument
-    Page(page: $page, perPage: $perPage) {
-        media (id: $id, type: ANIME, seasonYear: $year, sort: $sortOrder, search: $stringSearch
-            , format_in: $format) {    #find all media with id = $id and type = ANIME
-            id
-            seasonYear
-            season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
-            averageScore
-            isAdult
-            siteUrl
-            #genres
-            #studios
-            episodes
-            popularity
-            status              #will be returned as a string of "FINISHED", "RELEASING", and a few more possible strings
-            title {
-                english
-            }
-            coverImage {
-                large
-                extraLarge
-                color
-            }
-            description
-            studios(isMain: true) {       #filter by main here, would only has one studio
-                nodes {
-                    id
-                    name
+    query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sortOrder: [MediaSort] = POPULARITY_DESC){                   #id is a query argument
+        Page(page: $page, perPage: $perPage) {
+            media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sortOrder) {    #find all media with id = $id and type = ANIME
+                id
+                seasonYear
+                season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
+                averageScore
+                isAdult
+                siteUrl
+                #genres
+                #studios
+                episodes
+                popularity
+                status              #will be returned as a string of "FINISHED", "RELEASING", and a few more possible strings
+                title {
+                    english
+                }
+                coverImage {
+                    large
+                    extraLarge
+                    color
+                }
+                description
+                studios(isMain: true) {       #filter by main here, would only has one studio
+                    nodes {
+                        id
+                        name
+                    }
                 }
             }
         }
     }
-}
 `;
 
 
@@ -83,7 +81,11 @@ const Feeds = (props: FeedsProps) => {
             variables: {
                 page: 1,
                 perPage: 30,
-                year: filterFields.getYear
+                year: filterFields.sortYear,
+                // note that passing null works for year (i.e. any year), but null for status or format will return nothing
+                // for this API, use undefined instead for "any" 
+                status: filterFields.sortStatus,
+                format: filterFields.sortFormat
             }
         }
     );
