@@ -19,20 +19,27 @@ enum MediaSort {
  * filter by media status, defaults to NONE
  */
 enum MediaStatus {
-    NONE = "None",
+    NONE = "Any",
     FINISHED = "Finished",
     RELEASING = "Airing",
     NOT_YET_RELEASED = "Not yet Released",
     CANCELLED = "Cancelled",
-    HIATUS = "Nn Hiatus"
+    HIATUS = "On Hiatus",
 }
+
+var mediaStatusReverseMap = new Map<string, MediaStatus>();
+Object.keys(MediaStatus).forEach((status: any) => {
+    // const value = MediaStatus[];
+    // mediaStatusReverseMap.set(MediaStatus[status], status);
+    //mediaStatusReverseMap[MediaStatus[status]] = status;
+})
 
 /**
  * @description
  * filter by media format, defaults to NONE
  */
 enum MediaFormat {
-    NONE = "None",
+    NONE = "Any",
     TV = "TV",
     TV_SHORT = "Short TV",
     MOVIE = "Movie",
@@ -44,6 +51,7 @@ enum MediaFormat {
     NOVEL = "Novel",
     ONE_SHOT = "One Shot"
 }
+
 
 /**
  * @description

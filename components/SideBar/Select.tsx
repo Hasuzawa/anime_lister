@@ -5,7 +5,7 @@ import { motion, AnimateSharedLayout, AnimatePresence, Variants, Variant, Transi
 // interface with one generic variable
 interface SelectProps<T> {
     selected: T;
-    setSelected: Dispatch<SetStateAction<T>>;
+    setSelected: (t: T) => void;
     options: T[];
     width: number;
 }
@@ -53,7 +53,7 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
 
 interface OptionProps<T> {
     children: T;
-    setSelected: Dispatch<SetStateAction<T>>;
+    setSelected: (t: T) => void;
     setOpen: Dispatch<SetStateAction<boolean>>;
 }
 

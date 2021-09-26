@@ -1,21 +1,23 @@
 import Feed from "~/components/Main/Feed";
 import Focused from "~/components/Main/Focused";
 
-import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
+import { useState, Dispatch, SetStateAction, useRef, useEffect, useContext } from "react";
 import { motion, AnimateSharedLayout, useElementScroll } from "framer-motion";
 import { useQuery, gql } from "@apollo/client";
 
 import { Season } from "~/components/enums";
+
+import { FilterFieldsContext } from "~/stores/stores";
 
 
 // pass arguments when using the useQuery hook
 
 // the string search yields very weird result
 const GET_ANIMES = gql`
-query ($page: Int, $perPage: Int, $id: Int, $seasonYear: Int = 2020, $sortOrder: [MediaSort] = POPULARITY_DESC, $stringSearch: String
+query ($page: Int, $perPage: Int, $id: Int, $year: Int, $sortOrder: [MediaSort] = POPULARITY_DESC, $stringSearch: String
     , $format: [MediaFormat]){                   #id is a query argument
     Page(page: $page, perPage: $perPage) {
-        media (id: $id, type: ANIME, seasonYear: $seasonYear, sort: $sortOrder, search: $stringSearch
+        media (id: $id, type: ANIME, seasonYear: $year, sort: $sortOrder, search: $stringSearch
             , format_in: $format) {    #find all media with id = $id and type = ANIME
             id
             seasonYear
@@ -71,13 +73,17 @@ interface FeedsProps{
 }
 
 const Feeds = (props: FeedsProps) => {
+
+    const filterFields = useContext(FilterFieldsContext);
+
     // for GraphQL API
     const { loading, error, data, fetchMore } = useQuery(
         GET_ANIMES,
         {
             variables: {
                 page: 1,
-                perPage: 30
+                perPage: 30,
+                year: filterFields.getYear
             }
         }
     );

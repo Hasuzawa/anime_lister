@@ -7,34 +7,24 @@ import { MediaStatus, MediaFormat } from "~/components/enums";
 import { observer } from "mobx-react-lite";
 
 
-import { FilterFieldsContext } from "~/stores/stores";
+import { Year, FilterFieldsContext } from "~/stores/stores";
 
 const FilterMenu = observer(() => {
     const filterFields = useContext(FilterFieldsContext);
-    console.log(filterFields);
 
-    const lastSupportedYear = 1930;
-    const currentYear = new Date().getFullYear();
-    var yearArray: Array<number> = [];
+    const lastSupportedYear: number = 1930;
+    const currentYear: number = new Date().getFullYear();
+    var yearArray: Array<Year> = [];
+    yearArray.push("any");
     for (let i = currentYear; i >= lastSupportedYear; i--) {
         yearArray.push(i);
     }
 
 
-
-    const [ year, setYear ] = useState<number>();
-    const [ status, setStatus ] = useState<MediaStatus>();
-
-
-    const [ format, setFormat ] = useState<MediaFormat>();
-
-
-
     const logoSize = 40;
+
     return (
         <div className="border-black border-4">
-            <button onClick={() => filterFields.setYear(1995)}>testing mobx</button>
-            <span>{filterFields.year}</span>
             <div className="flex justify-center">
 
                 <Funnel size={logoSize} />
@@ -44,8 +34,8 @@ const FilterMenu = observer(() => {
                 <div className="flex flex-row">
                     <span>Year</span>
                     <Select
-                        selected={year}
-                        setSelected={setYear}
+                        selected={filterFields.year}
+                        setSelected={filterFields.setYear}
                         options={yearArray}
                         width={96}
                     />
@@ -53,8 +43,8 @@ const FilterMenu = observer(() => {
                 <div className="flex flex-row">
                     <span>Status</span>
                     <Select
-                        selected={status}
-                        setSelected={setStatus}
+                        selected={filterFields.status}
+                        setSelected={filterFields.setStatus}
                         options={Object.values(MediaStatus)}
                         width={160}
                     />
@@ -62,8 +52,8 @@ const FilterMenu = observer(() => {
                 <div className="flex flex-row">
                     <span>Format</span>
                     <Select
-                        selected={format}
-                        setSelected={setFormat}
+                        selected={filterFields.format}
+                        setSelected={filterFields.setFormat}
                         options={Object.values(MediaFormat)}
                         width={160}
                     />
