@@ -4,31 +4,13 @@ import SideLogoBar from "~/components/SideBar/SideLogoBar"
 import ControlPanel from "~/components/SideBar/ControlPanel";
 
 
-
-interface SideBarProps{
-    isCollapsed: boolean;
-    toggleCollapsed: () => void;
-    scrollYProgress: number;
-}
-
-
-const SideBar = (props: SideBarProps) => {
-    let isCollapsed = props.isCollapsed;
-    let toggleCollapsed = props.toggleCollapsed;
-
-
+const SideBar = () => {
 
     return (
         <motion.div id="side-bar" className={"flex-initial bg-blue-300 flex relative"} layout>
-            <ControlPanel isCollapsed={isCollapsed} />
-            {/* ...props ? */}
-            <SideLogoBar
-                isCollapsed={isCollapsed}
-                toggleCollapsed={toggleCollapsed}
-                scrollYProgress={props.scrollYProgress}     
-            />
+            <ControlPanel />
+            <SideLogoBar />
         </motion.div>
-
     );
 }
 

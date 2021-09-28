@@ -4,26 +4,19 @@ import { motion } from "framer-motion";
 import { SettingsContext } from "~/stores/Settings";
 import { observer } from "mobx-react-lite";
 
-interface SideLogoBarProps{
-    isCollapsed: boolean;
-    toggleCollapsed: () => void;
-    scrollYProgress: number;
-}
-
-const SideLogoBar = observer((props: SideLogoBarProps) => {
-    const settingsContext = useContext(SettingsContext);
-    console.log(settingsContext.displayAdultContent);
+const SideLogoBar = observer(() => {
+    const settings = useContext(SettingsContext);
 
     const logoSize = 40;
 
-    function collapseExpandButton(isCollapsed: boolean = props.isCollapsed): JSX.Element {
-        return isCollapsed ? <ArrowCircleRight className={"cursor-pointer"} size={logoSize} onClick={props.toggleCollapsed} />
-                           : <ArrowCircleLeft className={"cursor-pointer"} size={logoSize} onClick={props.toggleCollapsed} />
+    function collapseExpandButton(): JSX.Element {
+        return settings.isCollapsed ? <ArrowCircleRight className={"cursor-pointer"} size={logoSize} onClick={settings.toggleCollapsed} />
+                           : <ArrowCircleLeft className={"cursor-pointer"} size={logoSize} onClick={settings.toggleCollapsed} />
     }
 
      const displayAdultContent = () => {
-        return settingsContext.displayAdultContent ? <span onClick={settingsContext.toggleDisplayAdultContent} >show adult</span>
-            : <span onClick={settingsContext.toggleDisplayAdultContent} >don't show adult</span>
+        return settings.displayAdultContent ? <span onClick={settings.toggleDisplayAdultContent} >show adult</span>
+            : <span onClick={settings.toggleDisplayAdultContent} >don't show adult</span>
     }
 
     return (
@@ -41,7 +34,7 @@ const SideLogoBar = observer((props: SideLogoBarProps) => {
                 />
             </div>
 
-            <YScrollIndicator scrollYProgress={props.scrollYProgress} />
+            <YScrollIndicator scrollYProgress={settings.scrollYProgress} />
         </motion.div>
     );
 });

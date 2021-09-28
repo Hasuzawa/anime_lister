@@ -9,6 +9,7 @@ import { Season } from "~/components/enums";
 
 import { FilterFieldsContext } from "~/stores/FilterFields";
 import { SortFieldsContext } from "~/stores/SortFields";
+import { SettingsContext } from "~/stores/Settings";
 
 import { observer } from "mobx-react-lite";
 
@@ -25,7 +26,7 @@ const GET_ANIMES = gql`
                     extraLarge
                     color
                 }
-                
+
                 title {
                     english
                 }
@@ -88,15 +89,13 @@ interface Media{
 
 }
 
-interface FeedsProps{
-    setScrollYProgress: Dispatch<SetStateAction<number>>;
-}
 
 // WARNING: wrapping this in observer will casue animation to bug
-const Feeds = (props: FeedsProps) => {
+const Feeds = () => {
 
     const filterFields = useContext(FilterFieldsContext);
     const sortFields = useContext(SortFieldsContext);
+    const settings = useContext(SettingsContext);
     console.log(sortFields);
 
     // for GraphQL API
@@ -138,8 +137,8 @@ const Feeds = (props: FeedsProps) => {
     if (ref != null){
         const { scrollYProgress } = useElementScroll(ref);
         useEffect(() => {
-            scrollYProgress.onChange(props.setScrollYProgress);     // send scrollYProgress back to index.tsx
-        }, [scrollYProgress])
+            scrollYProgress.onChange(settings.setScrollYProgress);     // send scrollYProgress to setting store
+        }, [settings.scrollYProgress])
     }
 
     // Ideally I should render all under one div, instead of hooking them into a filler div when loading/error

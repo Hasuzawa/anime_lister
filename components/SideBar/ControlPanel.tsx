@@ -1,19 +1,20 @@
 import Link from "next/link"
+import { useContext } from "react";
 import { motion } from "framer-motion";
 
 import FilterMenu from "~/components/SideBar/FilterMenu";
 import SortMenu from "~/components/SideBar/SortMenu";
 
-interface ControlPanelProps {
-    isCollapsed: boolean;
-}
+import { SettingsContext } from "~/stores/Settings";
 
-const ControlPanel = (props: ControlPanelProps) => {
+const ControlPanel = () => {
+    const settings = useContext(SettingsContext);
+
     return (
         // do note that the change in content and bg are instant for w-0, even w-1 is visually very different
         <motion.div
             id="control-panel"
-            className={"flex-none overflow-hidden bg-pink-400" + (props.isCollapsed ? " w-0" : " w-68")}
+            className={"flex-none overflow-hidden bg-pink-400" + (settings.isCollapsed ? " w-0" : " w-68")}
             layout
         >
             <motion.div id="panel-top" className="p-4 bg-yellow-300 h-28">
