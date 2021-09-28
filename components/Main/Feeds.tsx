@@ -19,6 +19,11 @@ import { observer } from "mobx-react-lite";
 const GET_ANIMES = gql`
     query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sort: [MediaSort] = POPULARITY_DESC){                   #id is a query argument
         Page(page: $page, perPage: $perPage) {
+            pageInfo {
+                currentPage
+                lastPage
+                hasNextPage
+            }
             media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sort) {    #find all media with id = $id and type = ANIME
                 id
 
@@ -91,12 +96,11 @@ interface Media{
 
 
 // WARNING: wrapping this in observer will casue animation to bug
-const Feeds = () => {
+const Feeds = observer(() => {
 
     const filterFields = useContext(FilterFieldsContext);
     const sortFields = useContext(SortFieldsContext);
     const settings = useContext(SettingsContext);
-    console.log(sortFields);
 
     // for GraphQL API
     const { loading, error, data, fetchMore } = useQuery(
@@ -120,9 +124,6 @@ const Feeds = () => {
                 variables: {
                     page: 2
                 },  // updateQuery is soon to be deprecated.
-                updateQuery: (previous, { fetchMoreResult }) => {
-                    return fetchMoreResult;
-                }
             }
         )
     };
@@ -145,26 +146,7 @@ const Feeds = () => {
     if (loading) {return <div ref={ref}><h1>loading ...</h1></div>}
     if (error) {return <div ref={ref}><h1>error !!</h1></div>}
     
-    
-    
 
-    /* form of data
-        {
-            Page {
-                media [{
-                    id
-                    seasonYear
-                    ...
-                },
-                {
-                    id
-                    seasonYear
-                    ...
-                }]
-            }
-        }
-
-    */
    let focused: JSX.Element | null = null;
 
     let results: JSX.Element[] = data.Page.media.map((media: any, idx: number) => {
@@ -179,7 +161,7 @@ const Feeds = () => {
     // the "feeds" is where the y-scrolling happens.
     return (
         <>
-            <div
+            <motion.div
                 id="feeds"
                 className="flex w-full h-full flex-wrap p-4 justify-evenly gap-y-4 overflow-y-auto scroll-smooth"
                 ref={ref}
@@ -191,10 +173,9 @@ const Feeds = () => {
                     <span>current selected state is {selected.toString()}</span>
                     <button onClick={loadMore}>fetch more</button>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
-}
+});
 
 export default Feeds;
-export { Season };

@@ -15,7 +15,9 @@ const client = new ApolloClient({
         Page: {
           fields: {
             media: {
-
+              merge(existing: any[] = [], incoming: any[] = []) {
+                return [...existing, ...incoming];
+              }
             }
           }
         }

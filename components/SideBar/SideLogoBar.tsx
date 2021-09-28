@@ -20,7 +20,10 @@ const SideLogoBar = observer(() => {
     }
 
     return (
-        <motion.div className={"flex-none top-0 right-0 bottom-0 w-12      flex flex-col relative      border-r-4 relative"} layout >
+        <motion.div
+            className={"flex-none top-0 right-0 bottom-0 w-12      flex flex-col relative      border-r-4 relative"}
+            layout
+        >
             <div className={"flex-1 flex flex-col items-center"}>
                 <Image size={logoSize} />
                 {displayAdultContent()}
