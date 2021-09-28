@@ -15,7 +15,7 @@ around to access the search bar or filter. This is a webpage that tackles the pr
 | State Management| MobX                                |
 | API             | Apollo Client, GraphQL, AniList     |
 | Icon, Animation | Phosphor Icons, Framer Motion       |
-| Graphics        | Gimp, Inkscape                      |
+| Graphics        | Gimp, Inkscape, Figma               |
 | Versioning      | Git, GitHub                         |
 | Testing         | cypress                             |
 | CICD            | GitHub Action                       |
@@ -28,9 +28,10 @@ around to access the search bar or filter. This is a webpage that tackles the pr
 
 <ul>
     <li>Apollo Client, GraphQL & third party API.</li>
+    <li>Filtering and sorting by GraphQL query</li>
     <li>Framer Motion. Making website like a mobile app.</li>
 </ul>
-to do list: shift key events, sorting
+to do list: shift key events
 
 ## In search of site name...
 ~~Anime Chart~~ (taken, anichart)<br />

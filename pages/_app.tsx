@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";
 //import { HttpLink, ApolloLink, concat } from "@apollo/client";
 
-import FilterFields, { FilterFieldsContext } from "~/stores/stores";
+import FilterFields, { FilterFieldsContext } from "~/stores/FilterFields";
 
 const uri = "https://graphql.anilist.co"  //API of AniList
 

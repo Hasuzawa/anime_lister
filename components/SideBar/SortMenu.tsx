@@ -1,16 +1,17 @@
 import { SortAscending, SortDescending, ListNumbers} from "phosphor-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { motion, usePresence } from "framer-motion";
-import { SortField, SortOrder } from "~/components/enums";
+import { SortCriterion } from "~/components/enums";
 import Select from "~/components/SideBar/Select";
 
+import { SortFieldsContext } from "~/stores/SortFields";
+
+import { observer } from "mobx-react-lite";
 
 
-const SortMenu = () => {
-    const [ sortOrder, setSortOrder ] = useState<SortOrder>(SortOrder.DESCENDING);
-    const toggleSort = () => sortOrder === SortOrder.ASCENDING ? setSortOrder(SortOrder.DESCENDING) : setSortOrder(SortOrder.ASCENDING);
+const SortMenu = observer(() => {
+    const sortFields = useContext(SortFieldsContext);
 
-    const [ sortField, setSortField ] = useState<SortField>(SortField.POPULARITY);
     const [ hovered, setHovered ] = useState<boolean>(false);
     const toggleHovered = () => setHovered(!hovered);
 
@@ -28,27 +29,19 @@ const SortMenu = () => {
                     <ListNumbers size={iconSize} />
                 </div>
                 
-                <div className="flex flex-row">
+                <div className="flex flex-col items-center">
                     <span>Sort by</span>
-                    <Select<SortField>
-                        selected={sortField}
-                        setSelected={setSortField}
-                        options={Object.values(SortField)}
-                        width={160}
+                    <Select
+                        selected={sortFields.criterion}
+                        setSelected={sortFields.setCriterion}
+                        options={Object.values(SortCriterion)}
+                        width={200}
                     />
                 </div>
 
-                
-                <div className="flex items-center cursor-pointer" onClick={toggleSort} >
-                    {sortOrder === SortOrder.ASCENDING ?
-                        <SortAscending {...commonProps} /> :
-                        <SortDescending {...commonProps} />
-                    }
-                    <span>{sortOrder}</span>
-                </div>
             </div>
         </>
     );
-}
+});
 
 export default SortMenu;

@@ -7,15 +7,15 @@ import { MediaStatus, MediaFormat } from "~/components/enums";
 import { observer } from "mobx-react-lite";
 
 
-import { SortYear, FilterFieldsContext } from "~/stores/stores";
+import { FilterYear, FilterFieldsContext } from "~/stores/FilterFields";
 
 const FilterMenu = observer(() => {
     const filterFields = useContext(FilterFieldsContext);
 
     const lastSupportedYear: number = 1930;
     const currentYear: number = new Date().getFullYear();
-    var yearArray: Array<SortYear> = [];
-    yearArray.push("any");
+    var yearArray: Array<FilterYear> = [];
+    yearArray.push("Any");
     for (let i = currentYear; i >= lastSupportedYear; i--) {
         yearArray.push(i);
     }

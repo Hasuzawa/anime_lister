@@ -1,14 +1,14 @@
-import { makeObservable, observable, computed, action, flow} from "mobx";
+import { makeObservable, observable, computed, action} from "mobx";
 import { createContext } from "react";
 import { MediaStatus, MediaFormat, enumKeyFromValue } from "~/components/enums";
 
-type SortYear = number | "any";
+type FilterYear = number | "Any";
 
 
 const currentYear: number = new Date().getFullYear();
 
 class FilterFields {
-    year: SortYear = currentYear;
+    year: FilterYear = currentYear;
     status: MediaStatus = MediaStatus.ANY;
     format: MediaFormat = MediaFormat.ANY;
 
@@ -28,8 +28,8 @@ class FilterFields {
         })
     }
 
-    // if you don't write in => form, TS will complain the object is not extensible (because it is not binded)
-    setYear = (year: SortYear): void => {
+    // if you don't write in anonymous => form, TS will complain the object is not extensible (because it is not binded)
+    setYear = (year: FilterYear): void => {
         this.year = year;
     }
 
@@ -64,4 +64,4 @@ const FilterFieldsContext = createContext<FilterFields>(new FilterFields());
 export { FilterFieldsContext };
 
 
-export type { SortYear };
+export type { FilterYear };

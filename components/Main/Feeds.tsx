@@ -7,16 +7,18 @@ import { useQuery, gql } from "@apollo/client";
 
 import { Season } from "~/components/enums";
 
-import { FilterFieldsContext } from "~/stores/stores";
+import { FilterFieldsContext } from "~/stores/FilterFields";
+import { SortFieldsContext } from "~/stores/SortFields";
 
+import { observer } from "mobx-react-lite";
 
 // pass arguments when using the useQuery hook
 
 // the string search yields very weird result
 const GET_ANIMES = gql`
-    query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sortOrder: [MediaSort] = POPULARITY_DESC){                   #id is a query argument
+    query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sort: [MediaSort] = POPULARITY_DESC){                   #id is a query argument
         Page(page: $page, perPage: $perPage) {
-            media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sortOrder) {    #find all media with id = $id and type = ANIME
+            media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sort) {    #find all media with id = $id and type = ANIME
                 id
                 seasonYear
                 season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
@@ -70,9 +72,11 @@ interface FeedsProps{
     setScrollYProgress: Dispatch<SetStateAction<number>>;
 }
 
-const Feeds = (props: FeedsProps) => {
+const Feeds = observer((props: FeedsProps) => {
 
     const filterFields = useContext(FilterFieldsContext);
+    const sortFields = useContext(SortFieldsContext);
+    console.log(sortFields);
 
     // for GraphQL API
     const { loading, error, data, fetchMore } = useQuery(
@@ -85,7 +89,8 @@ const Feeds = (props: FeedsProps) => {
                 // note that passing null works for year (i.e. any year), but null for status or format will return nothing
                 // for this API, use undefined instead for "any" 
                 status: filterFields.sortStatus,
-                format: filterFields.sortFormat
+                format: filterFields.sortFormat,
+                sort: sortFields.sortCriterion,
             }
         }
     );
@@ -169,7 +174,7 @@ const Feeds = (props: FeedsProps) => {
             </div>
         </>
     );
-}
+});
 
 export default Feeds;
 export { Season };

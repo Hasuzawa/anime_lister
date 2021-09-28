@@ -6,7 +6,7 @@ import SideBar from "~/components/SideBar/SideBar";
 import Main from "~/components/Main/Main";
 
 import { observer } from "mobx-react-lite";
-import { FilterFieldsContext } from '~/stores/stores';
+import { FilterFieldsContext } from '~/stores/FilterFields';
 
 // if you don't remember observer wrapper, component will NOT re-render when one of the props it reads changes (but still will
 // reflect the change if it is re-rendered some other way)

@@ -3,15 +3,17 @@
  * @description
  * criteria for sorting search results, defaults to POPULARITY_DESC
  */
-enum MediaSort {
-    SCORE_DESC,         //average score
-    SCORE,              //no order defaults to ascending
-    POPULARITY,
-    POPULARITY_DESC,
-    TITLE_ENGLISH,          //a b c...
-    TITLE_ENGLISH_DESC,
-    START_DATE,
-    START_DATE_DESC,
+enum SortCriterion {
+    POPULARITY = "Popularity",
+    POPULARITY_DESC = "Popularity Desc.",    //default
+    SCORE = "Score",
+    SCORE_DESC = "Score Desc.",
+    TITLE_ENGLISH = "Alphabet",          //a b c...
+    TITLE_ENGLISH_DESC = "Alphabet Desc.",
+    START_DATE = "Premiere",
+    START_DATE_DESC = "Premiere Desc.",
+    EPISODES = "Episode Count",
+    EPISODES_DESC = "Episode Count Desc.",
 }
 
 /**
@@ -57,25 +59,11 @@ enum Season{
     WINTER
 }
 
-
-enum SortField {        //note: the string value are for sort menu, not for GraphQL
-    TITLE = "Title",        //i.e. abcd ...
-    AVERAGE_SCORE = "Average Score",
-    POPULARITY = "Popularity",
-    YEAR = "Year",
-};
-
-
-enum SortOrder {
-    ASCENDING = "ascending",
-    DESCENDING = "descending"
-};
-
 // e should be typeof E
 function enumKeyFromValue<E extends object, V>(e: E, value: V): any {
     const key: any = Object.keys(e)[Object.values(e).indexOf(value)];
     return key;
 }
 
-export { MediaSort, MediaStatus, MediaFormat, Season, SortField, SortOrder };
+export { MediaStatus, MediaFormat, Season, SortCriterion };
 export { enumKeyFromValue };
