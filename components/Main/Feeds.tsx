@@ -22,13 +22,26 @@ const GET_ANIMES = gql`
                 id
                 seasonYear
                 season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
-                averageScore
                 isAdult
                 siteUrl
                 #genres
                 #studios
                 episodes
+                averageScore
+                meanScore
                 popularity
+                favourites
+                startDate {
+                    year
+                    month
+                    day
+                }
+                endDate {
+                    year
+                    month
+                    day
+                }
+                description(asHtml: false)
                 status              #will be returned as a string of "FINISHED", "RELEASING", and a few more possible strings
                 title {
                     english
@@ -38,7 +51,6 @@ const GET_ANIMES = gql`
                     extraLarge
                     color
                 }
-                description
                 studios(isMain: true) {       #filter by main here, would only has one studio
                     nodes {
                         id
@@ -72,7 +84,8 @@ interface FeedsProps{
     setScrollYProgress: Dispatch<SetStateAction<number>>;
 }
 
-const Feeds = observer((props: FeedsProps) => {
+// WARNING: wrapping this in observer will casue animation to bug
+const Feeds = (props: FeedsProps) => {
 
     const filterFields = useContext(FilterFieldsContext);
     const sortFields = useContext(SortFieldsContext);
@@ -174,7 +187,7 @@ const Feeds = observer((props: FeedsProps) => {
             </div>
         </>
     );
-});
+}
 
 export default Feeds;
 export { Season };

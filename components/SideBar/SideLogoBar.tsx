@@ -1,6 +1,8 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useContext } from "react";
 import { Image, ListBullets, ArrowFatLinesUp, ArrowCircleLeft, ArrowCircleRight } from "phosphor-react";
 import { motion } from "framer-motion";
+import { SettingsContext } from "~/stores/Settings";
+import { observer } from "mobx-react-lite";
 
 interface SideLogoBarProps{
     isCollapsed: boolean;
@@ -8,7 +10,10 @@ interface SideLogoBarProps{
     scrollYProgress: number;
 }
 
-const SideLogoBar = (props: SideLogoBarProps) => {
+const SideLogoBar = observer((props: SideLogoBarProps) => {
+    const settingsContext = useContext(SettingsContext);
+    console.log(settingsContext.displayAdultContent);
+
     const logoSize = 40;
 
     function collapseExpandButton(isCollapsed: boolean = props.isCollapsed): JSX.Element {
@@ -16,10 +21,16 @@ const SideLogoBar = (props: SideLogoBarProps) => {
                            : <ArrowCircleLeft className={"cursor-pointer"} size={logoSize} onClick={props.toggleCollapsed} />
     }
 
+     const displayAdultContent = () => {
+        return settingsContext.displayAdultContent ? <span onClick={settingsContext.toggleDisplayAdultContent} >show adult</span>
+            : <span onClick={settingsContext.toggleDisplayAdultContent} >don't show adult</span>
+    }
+
     return (
         <motion.div className={"flex-none top-0 right-0 bottom-0 w-12      flex flex-col relative      border-r-4 relative"} layout >
             <div className={"flex-1 flex flex-col items-center"}>
                 <Image size={logoSize} />
+                {displayAdultContent()}
             </div>
             <div className={"flex-none bottom-0 flex flex-col items-center"}>
                 {collapseExpandButton()}
@@ -33,7 +44,7 @@ const SideLogoBar = (props: SideLogoBarProps) => {
             <YScrollIndicator scrollYProgress={props.scrollYProgress} />
         </motion.div>
     );
-}
+});
 
 interface YScrollProps{
     scrollYProgress: number
