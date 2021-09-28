@@ -13,3 +13,7 @@ body {
 .scroll-smooth{
   scroll-behavior: smooth;
 }
+
+.font-system-ui {
+  font-family: system-ui, sans-serif;
+}

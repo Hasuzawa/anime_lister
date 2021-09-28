@@ -20,17 +20,25 @@ const GET_ANIMES = gql`
         Page(page: $page, perPage: $perPage) {
             media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sort) {    #find all media with id = $id and type = ANIME
                 id
-                seasonYear
-                season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
-                isAdult
+
+                coverImage {
+                    extraLarge
+                    color
+                }
+                
+                title {
+                    english
+                }
                 siteUrl
-                #genres
-                #studios
-                episodes
-                averageScore
-                meanScore
-                popularity
-                favourites
+                studios(isMain: true) {       #filter by main here, would only has one studio
+                    nodes {
+                        id
+                        name
+                    }
+                }
+
+                season              #will be returned as a string of "SPRING", "SUMMER", "FALL" and "WINTER"
+                seasonYear
                 startDate {
                     year
                     month
@@ -41,22 +49,22 @@ const GET_ANIMES = gql`
                     month
                     day
                 }
+
+                isAdult
+                
+                episodes
+                genres
+
+                averageScore
+                meanScore
+                popularity
+                favourites
+
+
                 description(asHtml: false)
                 status              #will be returned as a string of "FINISHED", "RELEASING", and a few more possible strings
-                title {
-                    english
-                }
-                coverImage {
-                    large
-                    extraLarge
-                    color
-                }
-                studios(isMain: true) {       #filter by main here, would only has one studio
-                    nodes {
-                        id
-                        name
-                    }
-                }
+
+
             }
         }
     }

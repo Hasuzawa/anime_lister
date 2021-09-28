@@ -24,20 +24,15 @@ const SortMenu = observer(() => {
 
     return (
         <>
-            <div className="border-black border-4">
-                <div className="flex justify-center">
-                    <ListNumbers size={iconSize} />
-                </div>
-                
-                <div className="flex flex-col items-center">
-                    <span>Sort by</span>
+            <div className="border-black border-4 py-2 gap-y-2 flex flex-col justify items-center">
+                    <h1 className="font-system-ui">Sort</h1>
                     <Select
                         selected={sortFields.criterion}
                         setSelected={sortFields.setCriterion}
                         options={Object.values(SortCriterion)}
                         width={200}
                     />
-                </div>
+          
 
             </div>
         </>
