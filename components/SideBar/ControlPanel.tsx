@@ -1,26 +1,26 @@
 import Link from "next/link"
 import { useContext } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 import FilterMenu from "~/components/SideBar/FilterMenu";
 import SortMenu from "~/components/SideBar/SortMenu";
 
 import { SettingsContext } from "~/stores/Settings";
 
-const collapseVariant = {
-    hidden: {
-        width: 1
-    },
-    visible: {
+const collapseVariant: Variants = {
+    // hidden: {
+    //     width: 1    
+    // },
+    open: {
         width: 272,
         transition: {
-            duration: 5
+            duration: 1
         }
     },
-    exit: {
-        width: 1,
+    collapsed: {
+        width: 0,       //changing width might cause continuous layout change, which is expensive in CPU
         transition: {
-            duration: 5
+            duration: 1
         }
     }
 }
@@ -29,22 +29,19 @@ const ControlPanel = () => {
     const settings = useContext(SettingsContext);
 
     return (
-        // do note that the change in content and bg are instant for w-0, even w-1 is visually very different
-        <AnimatePresence>
+        // for CSS, do note that the change in content and bg are instant for w-0, even w-1 is visually very different
         <motion.div
             id="control-panel"
-            className={"flex-none overflow-hidden bg-pink-400"/* + (settings.isCollapsed ? " w-0" : " w-68")*/}
+            className={"flex-none overflow-x-hidden overflow-y-auto bg-pink-400 flex flex-col"} //don't change width by CSS, it won't be animated that way
             variants={collapseVariant}
-            initial="hidden"
-            animate={ settings.isCollapsed ? "exit" : "visible"}
-            exit="exit"
+            animate={ settings.isCollapsed ? "collapsed" : "open"}
             layout
         >
-            <motion.div id="panel-top" className="p-4 bg-yellow-300 h-28" layout>
+            <motion.div id="panel-top" className="flex-none p-4 bg-yellow-300 h-28 w-68" >
                 <motion.h1 layout>logo here</motion.h1>
                 {/* place a corner github here? */}
             </motion.div>
-            <motion.div id="panel-middle" className="p-4" layout>
+            <motion.div id="panel-middle" className="flex-auto w-68 p-4" >
                 {/* I ought to implement my own input components */}
 
                 {/* <motion.input type="text" layout></motion.input> notice the layout here, this prevents it being distorted */}
@@ -54,13 +51,12 @@ const ControlPanel = () => {
                 <SortMenu />
 
             </motion.div>
-            <motion.div id="panel-bottom" className="p-4 flex flex-col items-center" layout>
+            <motion.div id="panel-bottom" className="flex-none p-4 flex flex-col items-center w-68" >
                 <Link href={HasuzawaLink}><a>Created by Hasuzawa</a></Link>
                 <Link href={AniListAPI}><a>anime API by AniList</a></Link>
             </motion.div>
         
         </motion.div>
-        </AnimatePresence>
     );
 }
 

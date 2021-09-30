@@ -12,6 +12,7 @@ import { SortFieldsContext } from "~/stores/SortFields";
 import { SettingsContext } from "~/stores/Settings";
 
 import { observer } from "mobx-react-lite";
+import Filler from "~/components/Main/Filler";
 
 // pass arguments when using the useQuery hook
 
@@ -142,20 +143,34 @@ const Feeds = observer(() => {
         }, [settings.scrollYProgress])
     }
 
+
+    if (error) {return (
+        <div className="w-full h-full flex justify-centent items-center" ref={ref}> {/* not fixed yet */}
+            <h1>error !!</h1>
+        </div>
+    )}
     // Ideally I should render all under one div, instead of hooking them into a filler div when loading/error
-    if (loading) {return <div ref={ref}><h1>loading ...</h1></div>}
-    if (error) {return <div ref={ref}><h1>error !!</h1></div>}
+
+    let focused: JSX.Element | null = null;
+    let results: JSX.Element[] | JSX.Element;
+
+    if (loading) {
+        results = (
+            [0,1,2,3,4].map((element, idx) => <Filler key={idx} />)
+    )} else {
+        results = data.Page.media.map((media: any, idx: number) => {
+            if (media.id != selected){
+                return <Feed key={idx} media={media} setSelected={setSelected} />
+            } else {
+                return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
+            }
+        })
+    }
     
 
-   let focused: JSX.Element | null = null;
+   
 
-    let results: JSX.Element[] = data.Page.media.map((media: any, idx: number) => {
-        if (media.id != selected){
-            return <Feed key={idx} media={media} setSelected={setSelected} />
-        } else {
-            return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
-        }
-    });
+
 
     //motion.div and layout is deliberately not used here.
     // the "feeds" is where the y-scrolling happens.
@@ -163,7 +178,7 @@ const Feeds = observer(() => {
         <>
             <motion.div
                 id="feeds"
-                className="flex w-full h-full flex-wrap p-4 justify-evenly gap-y-4 overflow-y-auto scroll-smooth"
+                className="w-full h-full p-4 flex flex-wrap justify-evenly gap-y-4 overflow-y-auto scroll-smooth"
                 ref={ref}
             >   
                 <AnimateSharedLayout>

@@ -25,7 +25,7 @@ const SideLogoBar = observer(() => {
             layout
         >
             <div className={"flex-1 flex flex-col items-center"}>
-                <Image size={logoSize} />
+                {/* <Image size={logoSize} /> */}
                 {displayAdultContent()}
             </div>
             <div className={"flex-none bottom-0 flex flex-col items-center"}>

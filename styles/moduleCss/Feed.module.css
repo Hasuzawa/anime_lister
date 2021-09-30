@@ -1,8 +1,0 @@
-.feed{
-    width: 230px;
-    height: 329px;
-
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-}

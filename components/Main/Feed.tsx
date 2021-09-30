@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "~/styles/moduleCss/Feed.module.css";
+import styles from "~/styles/moduleCss/card.module.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Link as LinkIcon, WarningCircle } from "phosphor-react";
@@ -79,7 +79,7 @@ const Feed = observer((props: FeedProps) => {
 
     return (
         <motion.div
-            className={"flex-none bg-white rounded-md shadow-2xl " + styles.feed}
+            className={"bg-white shadow-2xl " + styles.card}
             layoutId={media.id.toString()}
             layout
         >

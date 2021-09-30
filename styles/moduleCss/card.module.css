@@ -1,0 +1,12 @@
+.card{
+    width: 230px;
+    height: 329px;
+
+    flex: 0 0 auto;
+    border-radius: 0.5em;
+
+    overflow: hidden;
+    /* display: flex;
+    flex-direction: column;
+    overflow-y: auto; */
+}
