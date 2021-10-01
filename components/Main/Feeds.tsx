@@ -136,11 +136,12 @@ const Feeds = observer(() => {
 
     // for scroll Y progress
     const ref = useRef<HTMLDivElement>(null);   //hook it to the scrolling div
+
     if (ref != null){
         const { scrollYProgress } = useElementScroll(ref);
         useEffect(() => {
-            scrollYProgress.onChange(settings.setScrollYProgress);     // send scrollYProgress to setting store
-        }, [settings.scrollYProgress])
+            scrollYProgress.onChange(settings.setScrollYProgress);     
+        }, /*[settings.scrollYProgress]*/)      //tracking the change of this object will cause scroll to be very laggy
     }
 
 
@@ -156,7 +157,7 @@ const Feeds = observer(() => {
 
     if (loading) {
         results = (
-            [0,1,2,3,4].map((element, idx) => <Filler key={idx} />)
+            [...Array(8)].map((element, idx) => <Filler key={idx} />)
     )} else {
         results = data.Page.media.map((media: any, idx: number) => {
             if (media.id != selected){
@@ -169,10 +170,6 @@ const Feeds = observer(() => {
     
 
    
-
-
-
-    //motion.div and layout is deliberately not used here.
     // the "feeds" is where the y-scrolling happens.
     return (
         <>

@@ -31,7 +31,7 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
     });
 
     return (
-        <div className={"relative"} style={{width: props.width}} ref={ref}>
+        <div className={"relative text-black"} style={{width: props.width}} ref={ref}>
             <div
                 className="bg-white w-full h-6 border border-gray-300 rounded-full px-2 flex justify-center items-center cursor-pointer overflow-hidden"
                 tabIndex={0}

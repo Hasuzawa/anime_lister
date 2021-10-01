@@ -14,13 +14,13 @@ const collapseVariant: Variants = {
     open: {
         width: 272,
         transition: {
-            duration: 1
+            duration: 0.5
         }
     },
     collapsed: {
         width: 0,       //changing width might cause continuous layout change, which is expensive in CPU
         transition: {
-            duration: 1
+            duration: 0.5
         }
     }
 }
@@ -32,7 +32,7 @@ const ControlPanel = () => {
         // for CSS, do note that the change in content and bg are instant for w-0, even w-1 is visually very different
         <motion.div
             id="control-panel"
-            className={"flex-none overflow-x-hidden overflow-y-auto bg-pink-400 flex flex-col"} //don't change width by CSS, it won't be animated that way
+            className={"flex-none overflow-x-hidden overflow-y-auto secondary-bg-color flex flex-col"} //don't change width by CSS, it won't be animated that way
             variants={collapseVariant}
             animate={ settings.isCollapsed ? "collapsed" : "open"}
             layout

@@ -9,7 +9,7 @@ const SideBar = () => {
     return (
         <motion.div
             id="side-bar"
-            className={"flex-initial bg-blue-300 flex relative"}
+            className={"flex-initial secondary-bg-color flex relative text-white"}
             layout
         >
             <ControlPanel />

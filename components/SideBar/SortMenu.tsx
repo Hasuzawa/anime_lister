@@ -24,7 +24,7 @@ const SortMenu = observer(() => {
 
     return (
         <>
-            <div className="border-t border-black py-2 gap-y-2 flex flex-col justify items-center">
+            <div className="border-t separator-border-color py-2 gap-y-2 flex flex-col justify items-center">
                     <h1 className="font-system-ui">Sort</h1>
                     <Select
                         selected={sortFields.criterion}

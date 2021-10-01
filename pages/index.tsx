@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import SideBar from "~/components/SideBar/SideBar";
 import Main from "~/components/Main/Main";
@@ -14,6 +14,36 @@ import { SettingsContext } from "~/stores/Settings";
 const Home: NextPage = observer(() => {
   const filterFields = useContext(FilterFieldsContext);
   const settings = useContext(SettingsContext);
+
+    // site-wide keyboard event handler
+    useEffect(() => {
+      const handleKeyboardEvents = (event: KeyboardEvent) => {
+
+        if (event.shiftKey) {
+    
+          if (event.key === "ArrowRight") {
+            console.log("shift right key");
+            settings.setCollapsed(false);
+          } else if (event.key === "ArrowLeft") {
+            settings.setCollapsed(true);
+          } else if (event.key === "ArrowUp") {
+            let element = document.getElementById("feeds");
+            if (!element) { throw new Error("element not in DOM")}
+            element.scrollTop = 0;
+          } else if (event.key === "ArrowDown") {
+            let element = document.getElementById("feeds");
+            if (!element) { throw new Error("element not in DOM")}
+            element.scrollTop = element.scrollHeight;
+          }
+        }
+      }
+
+      document.addEventListener("keydown", handleKeyboardEvents); //site-wide click event
+
+      return () => {      // clean up
+          document.removeEventListener("keydown", handleKeyboardEvents);
+      }
+    });
   
   return (
     <div className="w-screen h-screen flex" >

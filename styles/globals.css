@@ -17,3 +17,19 @@ body {
 .font-system-ui {
   font-family: system-ui, sans-serif;
 }
+
+.main-bg-color {
+  background-color: #673888;
+}
+
+.secondary-bg-color {
+  background-color: #363b74;
+}
+
+.border-main-color {
+  border-color: #c79dd7;
+}
+
+.separator-border-color {
+  border-color: white;
+}

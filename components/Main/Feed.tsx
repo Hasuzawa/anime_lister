@@ -42,7 +42,7 @@ const Feed = observer((props: FeedProps) => {
                 onClick={settingsContext.toggleDisplayAdultContent}
             > 
                 <WarningCircle size={40} />
-                <h1 className="text-center">The anime is age-restricted. Clicking this area will enable adult content.</h1>
+                <h1 className="text-center">The anime has sensitive content. Clicking this area will enable all age-restricted content.</h1>
             </div>
         );
     }
@@ -62,17 +62,6 @@ const Feed = observer((props: FeedProps) => {
                         priority
                     />
                 </div>
-                {/* <div className="flex-none w-full h-full p-2">
-                    <h1>{media.title.english}</h1>
-                    <h1>{media.seasonYear}</h1>
-                    <h1>{media.season}</h1>
-                    <Link href={media.siteUrl}>
-                        <a title={media.siteUrl}>
-                            <LinkIcon size={28} className={"inline"}/>
-                            <span>detailed page on AniList</span>
-                        </a>
-                    </Link>
-                </div> */}
             </>
         );
     }

@@ -24,7 +24,7 @@ const FilterMenu = observer(() => {
     const logoSize = 40;
 
     return (
-        <div className="border-t border-black flex flex-col py-2 gap-y-2">
+        <div className="border-t separator-border-color flex flex-col py-2 gap-y-2">
             <div className="flex justify-center">
                 <h1 className="font-system-ui">Filter</h1>
             </div>

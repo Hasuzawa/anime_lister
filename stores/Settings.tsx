@@ -13,6 +13,7 @@ class Settings {
 
             isCollapsed: observable,
             toggleCollapsed: action,
+            setCollapsed: action,
 
             scrollYProgress: observable,
             setScrollYProgress: action,
@@ -25,6 +26,10 @@ class Settings {
 
     toggleCollapsed = (): void => {
         this.isCollapsed = !this.isCollapsed;
+    }
+
+    setCollapsed = (collapsedState: boolean): void => {
+        this.isCollapsed = collapsedState;
     }
 
     setScrollYProgress = (scrollYProgress: number): void => {

@@ -7,7 +7,7 @@ const Main = observer((): JSX.Element => {
         /* add custom scroller to this main */
         <motion.main
             id="main"
-            className={`flex-auto w-280 max-h-full bg-red-300 overflow-hidden relative`}
+            className={`flex-auto w-280 max-h-full main-bg-color overflow-hidden relative`}
             layout
         >
             <Feeds />
