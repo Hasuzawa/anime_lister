@@ -14,7 +14,6 @@ const client = new ApolloClient({
     typePolicies: {
         Query: {
           fields: {
-
             Page: {
               keyArgs: false      // <-- singleton
             }
@@ -23,8 +22,9 @@ const client = new ApolloClient({
         Page: {
           fields: {
             media: {
-              
               merge(existing: any[] = [], incoming: any[]) {
+                console.log(existing);
+                console.log(incoming);
                 return [...existing, ...incoming];        // <-- append new media to existing array for infinite scroll
               }
             }

@@ -14,7 +14,7 @@ class Settings {
 
     currentPage: number = 1;     //for pagination
     lastPage: number = 1;
-    hasNextPage: boolean = false;
+    hasNextPage: boolean = false;   //not used right now
 
     constructor() {
         makeObservable(this, {
@@ -33,6 +33,7 @@ class Settings {
 
             lastPage: observable,
             setLastPage: action,
+
         })
     }
 

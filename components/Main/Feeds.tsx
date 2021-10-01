@@ -119,17 +119,18 @@ const Feeds = observer(() => {
             }
         }
     );
-    useEffect(() => {
+
+    const loadMore = () => {
         console.log("page number has changed");
         console.log(settings.currentPage);
         fetchMore(
             {
                 variables: {
-                    page: settings.currentPage
+                    page: settings.currentPage + 1
                 }
             }
         )
-    }, [settings.currentPage])
+    }
 
 
     // for selected element
@@ -163,7 +164,10 @@ const Feeds = observer(() => {
     )} else {
         const pageInfo = data.Page.pageInfo;
         console.log(pageInfo)
+
+        settings.setCurrentPage(pageInfo.currentPage);
         settings.setLastPage(pageInfo.lastPage)
+
         results = data.Page.media.map((media: any, idx: number) => {
             if (media.id != selected){
                 return <Feed key={idx} media={media} setSelected={setSelected} />
@@ -188,7 +192,7 @@ const Feeds = observer(() => {
                 </AnimateSharedLayout>
                 <div className="absolute top-0 left-0 bg-blue-300">
                     <span>current selected state is {selected.toString()}</span>
-                    <button onClick={() => settings.setCurrentPage(settings.currentPage + 1)}>fetch more</button>
+                    <button onClick={loadMore}>fetch more</button>
                 </div>
             </motion.div>
         </>
