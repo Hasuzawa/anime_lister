@@ -4,6 +4,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 
 import FilterMenu from "~/components/SideBar/FilterMenu";
 import SortMenu from "~/components/SideBar/SortMenu";
+import HotkeyMenu from "~/components/SideBar/HotkeyMenu";
 
 import { SettingsContext } from "~/stores/Settings";
 
@@ -49,7 +50,7 @@ const ControlPanel = () => {
 
                 <FilterMenu />
                 <SortMenu />
-
+                <HotkeyMenu />
             </motion.div>
             <motion.div id="panel-bottom" className="flex-none p-4 flex flex-col items-center w-68" >
                 <Link href={HasuzawaLink}><a>Created by Hasuzawa</a></Link>

@@ -32,6 +32,10 @@ const SideLogoBar = observer(() => {
                 {/* <Image size={logoSize} /> */}
                 {displayAdultContent()}
             </div>
+            <div className="flex-none flex flex-col items-center" >
+                <span className="w-4 border-b-2 text-center">{settings.currentPage}</span>
+                <span>{settings.lastPage}</span>
+            </div>
             <div className={"flex-none bottom-0 flex flex-col items-center"}>
                 {collapseExpandButton()}
                 <ArrowFatLinesUp
