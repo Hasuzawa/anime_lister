@@ -13,6 +13,7 @@ import { SettingsContext } from "~/stores/Settings";
 
 import { observer } from "mobx-react-lite";
 import Filler from "~/components/Main/Filler";
+import loadCustomRoutes from "next/dist/lib/load-custom-routes";
 
 // pass arguments when using the useQuery hook
 
@@ -140,12 +141,20 @@ const Feeds = observer(() => {
     // for scroll Y progress
     const ref = useRef<HTMLDivElement>(null);   //hook it to the scrolling div
 
-    if (ref != null){
-        const { scrollYProgress } = useElementScroll(ref);
-        useEffect(() => {
-            scrollYProgress.onChange(settings.setScrollYProgress);     
-        }, /*[settings.scrollYProgress]*/)      //tracking the change of this object will cause scroll to be very laggy
+    const { scrollYProgress } = useElementScroll(ref);
+    scrollYProgress.onChange(settings.setScrollYProgress);
+
+
+    // infinite scroll by loading more when at bottom of feeds
+    const handleScroll = () => {
+        const scrollDiv: HTMLDivElement | null = ref.current;
+        if (scrollDiv) {
+            if ( scrollDiv.scrollTop + scrollDiv.clientHeight >= scrollDiv.scrollHeight) {
+                loadMore();
+            }
+        }
     }
+
 
 
     if (error) {return (
@@ -186,6 +195,7 @@ const Feeds = observer(() => {
                 id="feeds"
                 className="w-full h-full p-4 flex flex-wrap justify-evenly gap-y-4 overflow-y-auto scroll-smooth"
                 ref={ref}
+                onScroll={handleScroll}
             >   
                 <AnimateSharedLayout>
                     {results}

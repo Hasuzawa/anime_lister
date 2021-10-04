@@ -4,8 +4,8 @@ import { ArrowFatLinesUp, ArrowFatLinesDown, ArrowCircleLeft, ArrowCircleRight }
 import { motion } from "framer-motion";
 import { SettingsContext } from "~/stores/Settings";
 import { observer } from "mobx-react-lite";
-import heart_locked from "~/public/icons/heart_locked.svg";
-import heart_unlocked from "~/public/icons/heart_unlocked.svg";
+import heart_locked_white from "~/public/icons/heart_locked_white.svg";
+import heart_unlocked_white from "~/public/icons/heart_unlocked_white.svg";
 
 const SideLogoBar = observer(() => {
     const settings = useContext(SettingsContext);
@@ -19,8 +19,22 @@ const SideLogoBar = observer(() => {
 
      const displayAdultContent = () => {
         return settings.displayAdultContent ?
-            <Image src={heart_unlocked.src} width={logoSize} height={logoSize} onClick={settings.toggleDisplayAdultContent} />
-            : <Image src={heart_locked.src} width={logoSize} height={logoSize} onClick={settings.toggleDisplayAdultContent} />
+            <Image
+                src={heart_unlocked_white.src}
+                width={logoSize}
+                height={logoSize}
+                alt="all content is enabled"
+                onClick={settings.toggleDisplayAdultContent}
+                className="cursor-pointer"
+            />
+            : <Image
+                src={heart_locked_white.src}
+                width={logoSize}
+                height={logoSize}
+                alt="in safe mode"
+                onClick={settings.toggleDisplayAdultContent}
+                className="cursor-pointer"
+            />
     }
 
     return (
@@ -28,7 +42,7 @@ const SideLogoBar = observer(() => {
             className={"flex-none top-0 right-0 bottom-0 w-12      flex flex-col relative      border-r-4 border-main-color relative"}
             layout
         >
-            <div className={"flex-1 flex flex-col items-center"}>
+            <div className={"flex-1 flex flex-col items-center pt-2"}>
                 {/* <Image size={logoSize} /> */}
                 {displayAdultContent()}
             </div>
@@ -36,7 +50,7 @@ const SideLogoBar = observer(() => {
                 <span className="w-4 border-b-2 text-center">{settings.currentPage}</span>
                 <span>{settings.lastPage}</span>
             </div>
-            <div className={"flex-none bottom-0 flex flex-col items-center"}>
+            <div className={"flex-none bottom-0 flex flex-col items-center pb-2"}>
                 {collapseExpandButton()}
                 <ArrowFatLinesUp
                     className="cursor-pointer" 

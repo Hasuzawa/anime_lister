@@ -3,8 +3,6 @@ import type { AppProps } from 'next/app'
 import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";
 //import { HttpLink, ApolloLink, concat } from "@apollo/client";
 
-import FilterFields, { FilterFieldsContext } from "~/stores/FilterFields";
-import { offsetLimitPagination } from '@apollo/client/utilities';
 
 const uri = "https://graphql.anilist.co"  //API of AniList
 
@@ -23,8 +21,6 @@ const client = new ApolloClient({
           fields: {
             media: {
               merge(existing: any[] = [], incoming: any[]) {
-                console.log(existing);
-                console.log(incoming);
                 return [...existing, ...incoming];        // <-- append new media to existing array for infinite scroll
               }
             }
