@@ -155,12 +155,46 @@ const AiringDuration = (props: FocusedSubComponents) => {
 
 const Statistics = (props: FocusedSubComponents) => {
     const { media } = props;
-
+    let stat = [
+        {
+            name: "Average Score",
+            field: "averageScore",
+        },
+        {
+            name: "Mean Score",
+            field: "meanScore",
+        },
+        {
+            name: "Popularity",
+            field: "popularity",
+            decorator: shortenedNumeric,
+        },
+        {
+            name: "Favourited",
+            field: "favourites",
+            decorator: shortenedNumeric,
+        },
+    ]
 
 
     return (
         <div className="flex-none flex justify-evenly">
-            { media.averageScore &&
+            { stat.map((element, idx) => {
+                console.log(media[element.field])
+                if (media[element.field] || media[element.field] === 0) {
+                    let value = media[element.field];
+                    return (
+                        <div className="flex flex-col items-center">
+                            <span>{element.name}</span>
+                            { element.decorator ?
+                                <span>{element.decorator(value)}</span> :
+                                <span>{value}</span>
+                            }
+                        </div>
+                    )
+                }
+            })}
+            {/* { media.averageScore &&
             <div className="flex flex-col items-center">
                 <span>Average Score</span>
                 <span>{media.averageScore}</span>
@@ -179,7 +213,7 @@ const Statistics = (props: FocusedSubComponents) => {
             <div className="flex flex-col items-center">
                 <span>Favourited</span>
                 <span>{shortenedNumeric(media.favourites)}</span>
-            </div>}
+            </div>} */}
             
         </div>
     );

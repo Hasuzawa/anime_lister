@@ -7,17 +7,35 @@ import { observer } from "mobx-react-lite";
 import heart_locked_white from "~/public/icons/heart_locked_white.svg";
 import heart_unlocked_white from "~/public/icons/heart_unlocked_white.svg";
 
+import { onEnterDown } from "functions/KeyboardEvent";
+
 const SideLogoBar = observer(() => {
     const settings = useContext(SettingsContext);
 
     const logoSize = 40;
 
     function collapseExpandButton(): JSX.Element {
-        return settings.isCollapsed ? <ArrowCircleRight className={"cursor-pointer"} size={logoSize} onClick={settings.toggleCollapsed} />
-                           : <ArrowCircleLeft className={"cursor-pointer"} size={logoSize} onClick={settings.toggleCollapsed} />
+
+        return settings.isCollapsed ?
+            <ArrowCircleRight
+                className={"cursor-pointer"}
+                size={logoSize}
+                onClick={settings.toggleCollapsed}
+                tabIndex={0}
+                onKeyDown={event => onEnterDown(event, settings.toggleCollapsed)}
+            />
+            :
+            <ArrowCircleLeft
+                className={"cursor-pointer"}
+                size={logoSize}
+                onClick={settings.toggleCollapsed}
+                tabIndex={0}
+                onKeyDown={event => onEnterDown(event, settings.toggleCollapsed)}
+            />
     }
 
      const displayAdultContent = () => {
+
         return settings.displayAdultContent ?
             <Image
                 src={heart_unlocked_white.src}
@@ -26,6 +44,8 @@ const SideLogoBar = observer(() => {
                 alt="all content is enabled"
                 onClick={settings.toggleDisplayAdultContent}
                 className="cursor-pointer"
+                tabIndex={0}
+                onKeyDown={event => onEnterDown(event, settings.toggleDisplayAdultContent)}
             />
             : <Image
                 src={heart_locked_white.src}
@@ -34,8 +54,18 @@ const SideLogoBar = observer(() => {
                 alt="in safe mode"
                 onClick={settings.toggleDisplayAdultContent}
                 className="cursor-pointer"
+                tabIndex={0}
+                onKeyDown={event => onEnterDown(event, settings.toggleDisplayAdultContent)}
             />
     }
+
+    const scrollToTop = () => document.getElementById("feeds")?.scrollTo(0,0);
+    const scrollToBottom = () => {
+        let element = document.getElementById("feeds");
+        if (element) {
+            element.scrollTop = element.scrollHeight;
+        }
+    };
 
     return (
         <motion.div
@@ -55,17 +85,16 @@ const SideLogoBar = observer(() => {
                 <ArrowFatLinesUp
                     className="cursor-pointer" 
                     size={logoSize}
-                    onClick={() => document.getElementById("feeds")?.scrollTo(0,0)}
+                    onClick={scrollToTop}
+                    tabIndex={0}
+                    onKeyDown={(event) => onEnterDown(event, scrollToTop)}
                 />
                 <ArrowFatLinesDown
                     className="cursor-pointer"
                     size={logoSize}
-                    onClick={() => {
-                        let element = document.getElementById("feeds");
-                        if (element) {
-                            element.scrollTop = element.scrollHeight;
-                        }
-                    }}
+                    onClick={scrollToBottom}
+                    tabIndex={0}
+                    onKeyDown={(event) => onEnterDown(event, scrollToBottom)}
                 />
             </div>
 

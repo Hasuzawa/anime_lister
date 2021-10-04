@@ -13,7 +13,7 @@ const FilterMenu = observer(() => {
     const filterFields = useContext(FilterFieldsContext);
 
     const lastSupportedYear: number = 1930;
-    const currentYear: number = new Date().getFullYear();
+    const currentYear: number = new Date().getFullYear() + 1;
     var yearArray: Array<FilterYear> = [];
     yearArray.push("Any");
     for (let i = currentYear; i >= lastSupportedYear; i--) {

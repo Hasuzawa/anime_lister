@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useContext } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import Image from "next/image";
 
 import FilterMenu from "~/components/SideBar/FilterMenu";
 import SortMenu from "~/components/SideBar/SortMenu";
@@ -8,10 +9,12 @@ import HotkeyMenu from "~/components/SideBar/HotkeyMenu";
 
 import { SettingsContext } from "~/stores/Settings";
 
+import { observer } from "mobx-react-lite";
+
+import logo from "~/public/icons/logo.svg";
+
 const collapseVariant: Variants = {
-    // hidden: {
-    //     width: 1    
-    // },
+
     open: {
         width: 272,
         transition: {
@@ -26,7 +29,7 @@ const collapseVariant: Variants = {
     }
 }
 
-const ControlPanel = () => {
+const ControlPanel = observer(() => {
     const settings = useContext(SettingsContext);
 
     return (
@@ -38,28 +41,26 @@ const ControlPanel = () => {
             animate={ settings.isCollapsed ? "collapsed" : "open"}
             layout
         >
-            <motion.div id="panel-top" className="flex-none p-4 bg-yellow-300 h-28 w-68" >
-                <motion.h1 layout>logo here</motion.h1>
-                {/* place a corner github here? */}
+            <motion.div id="panel-top" className="flex-none p-2 w-68 flex flex-col items-center gap-y-2" >
+                <Image src={logo.src} width={60} height={60} priority />
+                <motion.h1 layout>Compact Anime Searching</motion.h1>
+                
             </motion.div>
-            <motion.div id="panel-middle" className="flex-auto w-68 p-4" >
-                {/* I ought to implement my own input components */}
-
-                {/* <motion.input type="text" layout></motion.input> notice the layout here, this prevents it being distorted */}
-                {/* <input type="number"></input> */}
+            <motion.div id="panel-middle" className="flex-auto w-68 p-2" >
 
                 <FilterMenu />
                 <SortMenu />
                 <HotkeyMenu />
+
             </motion.div>
-            <motion.div id="panel-bottom" className="flex-none p-4 flex flex-col items-center w-68" >
+            <motion.div id="panel-bottom" className="flex-none p-2 flex flex-col items-center w-68" >
                 <Link href={HasuzawaLink}><a>Created by Hasuzawa</a></Link>
                 <Link href={AniListAPI}><a>anime API by AniList</a></Link>
             </motion.div>
         
         </motion.div>
     );
-}
+});
 
 const HasuzawaLink = "https://github.com/Hasuzawa";
 const AniListAPI = "https://github.com/AniList/ApiV2-GraphQL-Docs";

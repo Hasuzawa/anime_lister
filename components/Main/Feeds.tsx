@@ -110,7 +110,7 @@ const Feeds = observer(() => {
         {
             variables: {
                 page: 1,
-                perPage: 30,
+                perPage: 50,
                 year: filterFields.sortYear,
                 // note that passing null works for year (i.e. any year), but null for status or format will return nothing
                 // for this API, use undefined instead for "any" 
@@ -122,15 +122,15 @@ const Feeds = observer(() => {
     );
 
     const loadMore = () => {
-        console.log("page number has changed");
-        console.log(settings.currentPage);
-        fetchMore(
-            {
-                variables: {
-                    page: settings.currentPage + 1
+        if (settings.hasNextPage) {
+            fetchMore(
+                {
+                    variables: {
+                        page: settings.currentPage + 1
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
 
@@ -165,25 +165,37 @@ const Feeds = observer(() => {
     // Ideally I should render all under one div, instead of hooking them into a filler div when loading/error
 
     let focused: JSX.Element | null = null;
-    let results: JSX.Element[] | JSX.Element;
+    let results: JSX.Element[] | JSX.Element | null = null;
 
     if (loading) {
         results = (
             [...Array(8)].map((element, idx) => <Filler key={idx} />)
     )} else {
         const pageInfo = data.Page.pageInfo;
-        console.log(pageInfo)
 
         settings.setCurrentPage(pageInfo.currentPage);
         settings.setLastPage(pageInfo.lastPage)
+        settings.setHasNextPage(pageInfo.hasNextPage);
 
-        results = data.Page.media.map((media: any, idx: number) => {
-            if (media.id != selected){
-                return <Feed key={idx} media={media} setSelected={setSelected} />
-            } else {
-                return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
-            }
-        })
+        const media = data.Page.media;
+
+        if (media.length == 0) {        // no result
+            results = (
+                <div
+                    className="w-full h-full flex flex-col justify-center items-center"
+                >
+                    <h1 className="text-center text-white">No Search Result</h1>
+                </div>
+            )
+        } else if (media.length > 0) {
+            results = data.Page.media.map((media: any, idx: number) => {
+                if (media.id != selected){
+                    return <Feed key={idx} media={media} setSelected={setSelected} />
+                } else {
+                    return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
+                }
+            })
+        }
     }
     
 
