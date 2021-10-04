@@ -97,7 +97,7 @@ interface Media{
 }
 
 
-// WARNING: wrapping this in observer will casue animation to bug
+// WARNING: wrapping this in observer will casue animation to bug   <-- fixed
 const Feeds = observer(() => {
 
     const filterFields = useContext(FilterFieldsContext);
@@ -110,7 +110,7 @@ const Feeds = observer(() => {
         {
             variables: {
                 page: 1,
-                perPage: 30,
+                perPage: 50,
                 year: filterFields.sortYear,
                 // note that passing null works for year (i.e. any year), but null for status or format will return nothing
                 // for this API, use undefined instead for "any" 
@@ -124,13 +124,15 @@ const Feeds = observer(() => {
     const loadMore = () => {
         console.log("page number has changed");
         console.log(settings.currentPage);
-        fetchMore(
-            {
-                variables: {
-                    page: settings.currentPage + 1
+        if (settings.hasNextPage) {
+            fetchMore(
+                {
+                    variables: {
+                        page: settings.currentPage + 1
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
 
@@ -162,31 +164,50 @@ const Feeds = observer(() => {
             <h1>error !!</h1>
         </div>
     )}
-    // Ideally I should render all under one div, instead of hooking them into a filler div when loading/error
 
     let focused: JSX.Element | null = null;
-    let results: JSX.Element[] | JSX.Element;
+    //var results: JSX.Element[] | JSX.Element | null = null;
+    const [ result, setResult ] = useState<any>(null);
+    //let pageInfo: any = null;
 
-    if (loading) {
-        results = (
-            [...Array(8)].map((element, idx) => <Filler key={idx} />)
-    )} else {
-        const pageInfo = data.Page.pageInfo;
-        console.log(pageInfo)
+    useEffect(() => {
+        let results = [...Array(8)].map((element, idx) => <Filler key={idx} />)
+        setResult(results);
+    }, [loading])
+    
+
+    useEffect(() => {
+
+        if (data) {
+            console.log(data.Page.pageInfo);
+            const pageInfo = data.Page.pageInfo;
+        //console.log(pageInfo)
+        //console.log("hasNextPage?", pageInfo.hasNextPage.toString());
 
         settings.setCurrentPage(pageInfo.currentPage);
         settings.setLastPage(pageInfo.lastPage)
+        settings.setHasNextPage(pageInfo.hasNextPage);
 
-        results = data.Page.media.map((media: any, idx: number) => {
-            if (media.id != selected){
-                return <Feed key={idx} media={media} setSelected={setSelected} />
-            } else {
-                return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
-            }
-        })
-    }
+            console.log(data.Page.media);
+            let results = data.Page.media.map((media: any, idx: number) => {
+                if (media.id != selected){
+                    console.log("media rendered");
+                    return <Feed key={idx} media={media} setSelected={setSelected} />
+                } else {
+                    return (
+         
+                            <Focused key={idx} media={media} deselectSelected={deselectSelected} />
+
+                    )
+                }
+            })
+            setResult(results);
+        
+        }
+    }, [data] );
+
     
-
+    console.log(result);
    
     // the "feeds" is where the y-scrolling happens.
     return (
@@ -198,7 +219,7 @@ const Feeds = observer(() => {
                 onScroll={handleScroll}
             >   
                 <AnimateSharedLayout>
-                    {results}
+                    {result}
                 </AnimateSharedLayout>
                 <div className="absolute top-0 left-0 bg-blue-300">
                     <span>current selected state is {selected.toString()}</span>
