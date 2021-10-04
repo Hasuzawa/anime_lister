@@ -6,13 +6,14 @@ import SideBar from "~/components/SideBar/SideBar";
 import Main from "~/components/Main/Main";
 
 import { observer } from "mobx-react-lite";
-import { FilterFieldsContext } from '~/stores/FilterFields';
+
 import { SettingsContext } from "~/stores/Settings";
 
-// if you don't remember observer wrapper, component will NOT re-render when one of the props it reads changes (but still will
+import Debug from "~/components/Debug";
+
+// if you don't use observer wrapper, component will NOT re-render when one of the props it reads changes (but still will
 // reflect the change if it is re-rendered some other way)
 const Home: NextPage = observer(() => {
-  const filterFields = useContext(FilterFieldsContext);
   const settings = useContext(SettingsContext);
 
     // site-wide keyboard event handler
@@ -50,19 +51,10 @@ const Home: NextPage = observer(() => {
       <Head>
         <title>Anime Lister</title>
       </Head>
-      <div className="absolute top-0 right-0 bg-yellow-300 z-10 flex flex-col">
-        <span>collapse state is {settings.isCollapsed.toString()}</span>
-        <span>current year is {filterFields.year}</span>
-        <span>current status is {filterFields.status}</span>
-        <span>current format is {filterFields.format}</span>
-      </div>
-
       <SideBar />
-
       <Main />
-      <div className="absolute top-0 left-0">
-        <h1>{settings.scrollYProgress}</h1>
-      </div>
+
+      <Debug />
     </div>
   )
 })

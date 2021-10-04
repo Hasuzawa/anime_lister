@@ -41,6 +41,7 @@ const shortenedNumeric = (num: number): string => {
 const Focused = (props: any) => {
     const media = props.media;
     //console.log(media);
+
     
     return (
         // overlay backdrop of <Main>
@@ -51,7 +52,7 @@ const Focused = (props: any) => {
         >
             {/* only deactivate when the overlay is clicked */}
             <motion.div
-                className={"w-3/4 h-3/4 bg-white cursor-default relative p-4 flex"}
+                className={"w-3/4 h-3/4 focused-frame-color cursor-default relative p-4 flex"}
                 layoutId={props.media.id.toString()}
                 onClick={(e) => {e.stopPropagation()}}
             >
@@ -67,21 +68,11 @@ const Focused = (props: any) => {
                     />
                     </div>
                 </div>
-                <div className="flex-none w-7/10 flex flex-col p-4 bg-red-300 overflow-auto gap-y-4">
-                    <div className="flex-none">
-                        <Link href={media.siteUrl}><a>
-                            <span className="block text-xl">{media.title.english}</span>
-                        </a></Link>
-                        <span className="italic">{media.studios.nodes[0]?.name}</span>
-                    </div>
-                    <div className="flex-none flex justify-between">
-                        <span className="mr-16">Season: {capitaliseFirstLetter(media.season)} {media.seasonYear}</span>
-                        <span>{"Airing: " +
-                            `${media.startDate.day} ${numberToMonth.get(media.startDate.month)} ${media.startDate.year}`+
-                            "      ~     " +
-                            `${media.endDate.day} ${numberToMonth.get(media.endDate.month)} ${media.endDate.year}`}
-                        </span>
-                    </div>
+                <div className="flex-none w-7/10 flex flex-col p-4 bg-red-30x focused-frame-color overflow-auto gap-y-4">
+                    <NameAndProducer media={media} />
+
+                    <AiringDuration media={media} />
+
                     <div className="flex-none flex justify-evenly">
                         {media.genres.map((element: string, idx: number) => 
                         <span
@@ -91,24 +82,9 @@ const Focused = (props: any) => {
                             {element}
                         </span>)}
                     </div>
-                    <div className="flex-none flex justify-evenly">
-                        <div className="flex flex-col items-center">
-                            <span>Average Score</span>
-                            <span>{media.averageScore}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <span>Mean Score</span>
-                            <span>{media.meanScore}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <span>Popularity</span>
-                            <span>{shortenedNumeric(media.popularity)}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <span>Favourited</span>
-                            <span>{shortenedNumeric(media.favourites)}</span>
-                        </div>
-                    </div>
+
+                    <Statistics media={media} />
+
                     <div
                         className="flex-none overflow-hidden"
                         dangerouslySetInnerHTML= {{
@@ -122,5 +98,92 @@ const Focused = (props: any) => {
         </motion.div>
     );
 }
+
+interface FocusedSubComponents {
+    media: any
+}
+
+const NameAndProducer = (props: FocusedSubComponents) => {
+    const { media } = props;
+
+    let name: string = "(Anime Unknown)";
+    if (media.title.english) {
+        name = media.title.english;
+    }
+
+    let producer: string = "(Producer Unknown)";
+    if (media.studios.nodes[0]?.name) {
+        producer = media.studios.nodes[0]?.name;
+    }
+
+    return (
+        <div className="flex-none">
+            <Link href={media.siteUrl}><a>
+                <span className="block text-xl">{name}</span>
+            </a></Link>
+            <span className="italic">{producer}</span>
+        </div>
+    );
+}
+
+const AiringDuration = (props: FocusedSubComponents) => {
+    const media = props.media;
+    const { startDate, endDate } = media;
+
+    let season: string = "N/A";
+    if (media.season && media.seasonYear) {
+        season = `${capitaliseFirstLetter(media.season)} ${media.seasonYear}`;
+    }
+    
+    let start = "N/A";
+    if (startDate.day && startDate.month && startDate.year) {
+        start = `${startDate.day} ${numberToMonth.get(startDate.month)} ${startDate.year}`
+    }
+    let end = "N/A";
+    if (endDate.day && endDate.month && endDate.year) {
+        end = `${endDate.day} ${numberToMonth.get(endDate.month)} ${endDate.year}`
+    }
+    
+    return (
+        <div className="flex-none flex justify-between">
+            <span className="mr-16">Season: {season}</span>
+            <span>{`Airing: ${start} ~ ${end}`}</span>
+        </div>
+    );
+}
+
+
+const Statistics = (props: FocusedSubComponents) => {
+    const { media } = props;
+
+
+
+    return (
+        <div className="flex-none flex justify-evenly">
+            { media.averageScore &&
+            <div className="flex flex-col items-center">
+                <span>Average Score</span>
+                <span>{media.averageScore}</span>
+            </div>}
+            { media.meanScore &&
+            <div className="flex flex-col items-center">
+                <span>Mean Score</span>
+                <span>{media.meanScore}</span>
+            </div>}
+            { media.popularity && 
+            <div className="flex flex-col items-center">
+                <span>Popularity</span>
+                <span>{shortenedNumeric(media.popularity)}</span>
+            </div>}
+            { media.favourites && 
+            <div className="flex flex-col items-center">
+                <span>Favourited</span>
+                <span>{shortenedNumeric(media.favourites)}</span>
+            </div>}
+            
+        </div>
+    );
+}
+
 
 export default Focused;

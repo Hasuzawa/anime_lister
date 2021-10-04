@@ -33,3 +33,7 @@ body {
 .separator-border-color {
   border-color: white;
 }
+
+.focused-frame-color {
+  background-color: #c79dd7;
+}
