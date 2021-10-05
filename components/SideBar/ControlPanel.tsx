@@ -42,7 +42,7 @@ const ControlPanel = observer(() => {
             layout
         >
             <motion.div id="panel-top" className="flex-none p-2 w-68 flex flex-col items-center gap-y-2" >
-                <Image src={logo.src} width={60} height={60} priority />
+                <Image src={logo.src} width={60} height={60} id={"website-logo"} priority />
                 <motion.h1 layout>Compact Anime Searching</motion.h1>
                 
             </motion.div>
@@ -54,8 +54,8 @@ const ControlPanel = observer(() => {
 
             </motion.div>
             <motion.div id="panel-bottom" className="flex-none p-2 flex flex-col items-center w-68" >
-                <Link href={HasuzawaLink}><a>Created by Hasuzawa</a></Link>
-                <Link href={AniListAPI}><a>anime API by AniList</a></Link>
+                <Link href={HasuzawaLink} ><a id={"maker-credit-link"}>Created by Hasuzawa</a></Link>
+                <Link href={AniListAPI}><a id={"api-credit-link"}>anime API by AniList</a></Link>
             </motion.div>
         
         </motion.div>

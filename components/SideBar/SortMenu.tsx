@@ -31,6 +31,7 @@ const SortMenu = observer(() => {
                         setSelected={sortFields.setCriterion}
                         options={Object.values(SortCriterion)}
                         width={200}
+                        id={"sortCriterionSelect"}
                     />
           
 
