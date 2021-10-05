@@ -40,13 +40,12 @@ const shortenedNumeric = (num: number): string => {
 
 const Focused = (props: any) => {
     const media = props.media;
-    //console.log(media);
 
     
     return (
         // overlay backdrop of <Main>
         <motion.div
-            className="absolute inset-0 bg-black bg-opacity-30 flex z-10 justify-center items-center cursor-pointer"
+            className="absolute inset-0 bg-black bg-opacity-40 flex z-10 justify-center items-center cursor-pointer"
             onClick={props.deselectSelected}
             layout
         >
@@ -56,7 +55,7 @@ const Focused = (props: any) => {
                 layoutId={props.media.id.toString()}
                 onClick={(e) => {e.stopPropagation()}}
             >
-                <X size={44} className="absolute top-0 right-0 cursor-pointer" onClick={props.deselectSelected}/>
+                {/* <X size={44} className="absolute top-0 right-0 cursor-pointer" onClick={props.deselectSelected}/> */}
                 <div className="flex-none w-3/10 bg-black flex items-center">
                     {/* has vertical overflow problem */}
                     <div className="w-full max-w-full max-h-full flex-none block">    {/* for vertical center */}
@@ -68,7 +67,7 @@ const Focused = (props: any) => {
                     />
                     </div>
                 </div>
-                <div className="flex-none w-7/10 flex flex-col p-4 bg-red-30x focused-frame-color overflow-auto gap-y-4">
+                <div className="flex-none w-7/10 flex flex-col p-4 bg-red-30x focused-frame-col bg-white overflow-auto gap-y-4">
                     <NameAndProducer media={media} />
 
                     <AiringDuration media={media} />
@@ -180,11 +179,10 @@ const Statistics = (props: FocusedSubComponents) => {
     return (
         <div className="flex-none flex justify-evenly">
             { stat.map((element, idx) => {
-                console.log(media[element.field])
                 if (media[element.field] || media[element.field] === 0) {
                     let value = media[element.field];
                     return (
-                        <div className="flex flex-col items-center">
+                        <div key={idx} className="flex flex-col items-center" >
                             <span>{element.name}</span>
                             { element.decorator ?
                                 <span>{element.decorator(value)}</span> :
@@ -198,23 +196,7 @@ const Statistics = (props: FocusedSubComponents) => {
             <div className="flex flex-col items-center">
                 <span>Average Score</span>
                 <span>{media.averageScore}</span>
-            </div>}
-            { media.meanScore &&
-            <div className="flex flex-col items-center">
-                <span>Mean Score</span>
-                <span>{media.meanScore}</span>
-            </div>}
-            { media.popularity && 
-            <div className="flex flex-col items-center">
-                <span>Popularity</span>
-                <span>{shortenedNumeric(media.popularity)}</span>
-            </div>}
-            { media.favourites && 
-            <div className="flex flex-col items-center">
-                <span>Favourited</span>
-                <span>{shortenedNumeric(media.favourites)}</span>
-            </div>} */}
-            
+            </div>}*/}
         </div>
     );
 }

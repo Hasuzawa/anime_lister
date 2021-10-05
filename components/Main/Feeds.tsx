@@ -13,7 +13,6 @@ import { SettingsContext } from "~/stores/Settings";
 
 import { observer } from "mobx-react-lite";
 import Filler from "~/components/Main/Filler";
-import loadCustomRoutes from "next/dist/lib/load-custom-routes";
 
 // pass arguments when using the useQuery hook
 
@@ -190,7 +189,7 @@ const Feeds = observer(() => {
         } else if (media.length > 0) {
             results = data.Page.media.map((media: any, idx: number) => {
                 if (media.id != selected){
-                    return <Feed key={idx} media={media} setSelected={setSelected} />
+                    return <Feed key={idx} media={media} setSelected={setSelected}/>
                 } else {
                     return <Focused key={idx} media={media} deselectSelected={deselectSelected} />
                 }
@@ -198,8 +197,6 @@ const Feeds = observer(() => {
         }
     }
     
-
-   
     // the "feeds" is where the y-scrolling happens.
     return (
         <>

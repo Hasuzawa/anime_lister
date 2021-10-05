@@ -35,6 +35,7 @@ const FilterMenu = observer(() => {
                     setSelected={filterFields.setYear}
                     options={yearArray}
                     width={96}
+                    id={"yearFilterSelect"}
                 />
             </div>
             <div className="flex flex-row">
@@ -44,6 +45,7 @@ const FilterMenu = observer(() => {
                     setSelected={filterFields.setStatus}
                     options={Object.values(MediaStatus)}
                     width={160}
+                    id={"statusFilterSelect"}
                 />
             </div>
             <div className="flex flex-row">
@@ -53,6 +55,7 @@ const FilterMenu = observer(() => {
                     setSelected={filterFields.setFormat}
                     options={Object.values(MediaFormat)}
                     width={160}
+                    id={"formatFilterSelect"}
                 />
             </div>
         </div>

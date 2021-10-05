@@ -27,15 +27,18 @@ around to access the search bar or filter. This is a webpage that tackles the pr
 ## This project features
 
 <ul>
-    <li>Apollo Client, GraphQL & third party API.</li>
+    <li>Apollo Client, GraphQL & third party API</li>
     <li>Filtering and sorting by GraphQL query</li>
-    <li>Framer Motion. Making website like a mobile app.</li>
+    <li>Framer Motion. Animated layout change</li>
+    <li>foldable menu. Maximize list area</li>
+    <li>infinite scrolling. No more pagination button</li>
+    <li>hotkeys. Search faster and easier</li>
+    <li>generic components. Making components even more versatile</li>
 </ul>
-to do list: shift key events
 
 ## In search of site name...
 ~~Anime Chart~~ (taken, anichart)<br />
-~~Anime Lister~~ (taken, animelister)
+~~Anime Lister~~ (taken, animelister)<br />
 
 ## Technical commentary
 
@@ -48,5 +51,7 @@ to do list: shift key events
         vector art and .svg. But to not draw but code it is an entirely different process.</li>
     <li>Incorporated MobX. Too many prop-drilling across components. Although the MobX I implemented is just slightly barely
         better than a context of useState, its benefit will manifest in larger apps. 
+    </li>
+    <li>Implemented infinite scrolling. Everytime a new fetch is done there is a layout change. Under existing framework there is no way to animate one layout change only. I have to separate the fetching and displaying if I want different animation behaviour.
     </li>
 </ul>

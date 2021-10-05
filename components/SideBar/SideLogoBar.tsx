@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import heart_locked_white from "~/public/icons/heart_locked_white.svg";
 import heart_unlocked_white from "~/public/icons/heart_unlocked_white.svg";
 
-import { onEnterDown } from "functions/KeyboardEvent";
+import { onEnter } from "functions/KeyboardEvent";
 
 const SideLogoBar = observer(() => {
     const settings = useContext(SettingsContext);
@@ -21,16 +21,18 @@ const SideLogoBar = observer(() => {
                 className={"cursor-pointer"}
                 size={logoSize}
                 onClick={settings.toggleCollapsed}
+                id={"unfold-menu-btn"}
                 tabIndex={0}
-                onKeyDown={event => onEnterDown(event, settings.toggleCollapsed)}
+                onKeyDown={event => onEnter(event, settings.toggleCollapsed) }
             />
             :
             <ArrowCircleLeft
                 className={"cursor-pointer"}
                 size={logoSize}
                 onClick={settings.toggleCollapsed}
+                id={"fold-menu-btn"}
                 tabIndex={0}
-                onKeyDown={event => onEnterDown(event, settings.toggleCollapsed)}
+                onKeyDown={event => onEnter(event, settings.toggleCollapsed) }
             />
     }
 
@@ -45,7 +47,7 @@ const SideLogoBar = observer(() => {
                 onClick={settings.toggleDisplayAdultContent}
                 className="cursor-pointer"
                 tabIndex={0}
-                onKeyDown={event => onEnterDown(event, settings.toggleDisplayAdultContent)}
+                onKeyDown={event => onEnter(event, settings.toggleDisplayAdultContent)}
             />
             : <Image
                 src={heart_locked_white.src}
@@ -55,7 +57,7 @@ const SideLogoBar = observer(() => {
                 onClick={settings.toggleDisplayAdultContent}
                 className="cursor-pointer"
                 tabIndex={0}
-                onKeyDown={event => onEnterDown(event, settings.toggleDisplayAdultContent)}
+                onKeyDown={event => onEnter(event, settings.toggleDisplayAdultContent)}
             />
     }
 
@@ -87,14 +89,14 @@ const SideLogoBar = observer(() => {
                     size={logoSize}
                     onClick={scrollToTop}
                     tabIndex={0}
-                    onKeyDown={(event) => onEnterDown(event, scrollToTop)}
+                    onKeyDown={(event) => onEnter(event, scrollToTop)}
                 />
                 <ArrowFatLinesDown
                     className="cursor-pointer"
                     size={logoSize}
                     onClick={scrollToBottom}
                     tabIndex={0}
-                    onKeyDown={(event) => onEnterDown(event, scrollToBottom)}
+                    onKeyDown={(event) => onEnter(event, scrollToBottom)}
                 />
             </div>
 

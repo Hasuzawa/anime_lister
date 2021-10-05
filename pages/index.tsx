@@ -23,7 +23,6 @@ const Home: NextPage = observer(() => {
         if (event.shiftKey) {
     
           if (event.key === "ArrowRight") {
-            console.log("shift right key");
             settings.setCollapsed(false);
           } else if (event.key === "ArrowLeft") {
             settings.setCollapsed(true);
