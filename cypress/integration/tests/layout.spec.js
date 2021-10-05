@@ -1,9 +1,8 @@
 
-const url = "http://localhost:3000/";
 
 describe("Check Layout is correct" , () => {
     it("Go to website", () => {
-        cy.visit(url)
+        cy.visit("")
     })
 
     it("Main listing area exists", () => {
@@ -46,6 +45,12 @@ describe("Check Layout is correct" , () => {
         cy.get("#feeds")
     })
 
+    // it("Debug menu does not exist", () => {
+    //     cy.get("#debug-menu").should("not.exist")
+    // })
+
+
+    
     // it("", () => {
     //     cy.get()
     // })

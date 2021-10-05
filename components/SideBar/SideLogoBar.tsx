@@ -87,6 +87,7 @@ const SideLogoBar = observer(() => {
                 <ArrowFatLinesUp
                     className="cursor-pointer" 
                     size={logoSize}
+                    id={"scroll-to-top-btn"}
                     onClick={scrollToTop}
                     tabIndex={0}
                     onKeyDown={(event) => onEnter(event, scrollToTop)}
@@ -94,6 +95,7 @@ const SideLogoBar = observer(() => {
                 <ArrowFatLinesDown
                     className="cursor-pointer"
                     size={logoSize}
+                    id={"scroll-to-bottom-btn"}
                     onClick={scrollToBottom}
                     tabIndex={0}
                     onKeyDown={(event) => onEnter(event, scrollToBottom)}
