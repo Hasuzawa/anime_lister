@@ -1,7 +1,6 @@
 ## About
 This is a personal project on frontend API. One of the goal is to provide a streamlined experience and maximise the
-effecive usage of screen area (optimised for 1440px x 900px screen). I have noticed that too often one has to scroll
-around to access the search bar or filter. This is a webpage that tackles the problem.
+effecive usage of screen area. I have noticed that too often one has to scroll around to access the search bar or filter. This is a webpage that tackles the problem.
 
 ## Blueplan
 <details open>
@@ -35,6 +34,7 @@ around to access the search bar or filter. This is a webpage that tackles the pr
     <li>hotkeys. Search faster and easier</li>
     <li>generic components. Making components even more versatile</li>
 </ul>
+todo: aria-label, better keyboard interaction
 
 ## In search of site name...
 ~~Anime Chart~~ (taken, anichart)<br />

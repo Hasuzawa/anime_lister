@@ -4,16 +4,16 @@
  * criteria for sorting search results, defaults to POPULARITY_DESC
  */
 enum SortCriterion {
-    POPULARITY = "Popularity",
-    POPULARITY_DESC = "Popularity Desc.",    //default
-    SCORE = "Score",
-    SCORE_DESC = "Score Desc.",
-    TITLE_ENGLISH = "Alphabet",          //a b c...
-    TITLE_ENGLISH_DESC = "Alphabet Desc.",
-    START_DATE = "Premiere",
-    START_DATE_DESC = "Premiere Desc.",
-    EPISODES = "Episode Count",
-    EPISODES_DESC = "Episode Count Desc.",
+    POPULARITY = "Popularity lower first",
+    POPULARITY_DESC = "Popularity higher first",    //default
+    SCORE = "Score lower first",
+    SCORE_DESC = "Score higher first",
+    //TITLE_ENGLISH = "Alphabet A to Z",          //a b c...        // now is bugged
+    //TITLE_ENGLISH_DESC = "Alphabet Z to A",
+    START_DATE = "Premiere earliest",
+    START_DATE_DESC = "Premiere latest",
+    EPISODES = "Episode Count fewer",
+    EPISODES_DESC = "Episode Count more",
 }
 
 /**

@@ -70,7 +70,7 @@ const Focused = (props: any) => {
                 <div className="flex-none w-7/10 flex flex-col p-4 bg-red-30x focused-frame-col bg-white overflow-auto gap-y-4">
                     <NameAndProducer media={media} />
 
-                    <AiringDuration media={media} />
+                    <SeasonAndTime media={media} />
 
                     <div className="flex-none flex justify-evenly">
                         {media.genres.map((element: string, idx: number) => 
@@ -125,7 +125,7 @@ const NameAndProducer = (props: FocusedSubComponents) => {
     );
 }
 
-const AiringDuration = (props: FocusedSubComponents) => {
+const SeasonAndTime = (props: FocusedSubComponents) => {
     const media = props.media;
     const { startDate, endDate } = media;
 

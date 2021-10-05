@@ -18,14 +18,14 @@ import Filler from "~/components/Main/Filler";
 
 // the string search yields very weird result
 const GET_ANIMES = gql`
-    query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sort: [MediaSort] = POPULARITY_DESC){                   #id is a query argument
+    query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sort: [MediaSort] = POPULARITY_DESC){
         Page(page: $page, perPage: $perPage) {
             pageInfo {
                 currentPage
                 lastPage
                 hasNextPage
             }
-            media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sort) {    #find all media with id = $id and type = ANIME
+            media (type: ANIME, seasonYear: $year, status: $status, format: $format, sort: $sort) {
                 id
 
                 coverImage {

@@ -13,10 +13,10 @@ function onKeyDown(key: string) {
 const onEnter = onKeyDown("Enter");
 const onEsc = onKeyDown("Escape");
 
-const onLeft = onKeyDown("");
-const onRight = onKeyDown("");
-const onUp = onKeyDown("");
-const onDown = onKeyDown("");
+const onLeft = onKeyDown("ArrowLeft");
+const onRight = onKeyDown("ArrowRight");
+const onUp = onKeyDown("ArrowUp");
+const onDown = onKeyDown("ArrowDown");
 
 
 export { onEnter, onEsc };

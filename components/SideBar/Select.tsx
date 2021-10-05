@@ -48,25 +48,27 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
     // }
 
     return (
-        <div className={"relative text-black"} style={{width: props.width}} ref={ref}>
+        <div 
+            className={"relative text-black"}
+            style={{width: props.width}} ref={ref}
+            //onBlur={() => setOpen(false)}       // close menu if tab to another element (remember unhandled event will bubble up)
+            // will cause handleSelection to bug
+        >
             <div
                 className="bg-white w-full h-6 border border-gray-300 rounded-full px-2 flex justify-center items-center cursor-pointer overflow-hidden"
                 onClick={toggleOpen}
                 tabIndex={0}
-                onKeyDown={e => {onEnter(e, toggleOpen); optionsRef.current?.focus()}}
+                onKeyDown={e => {onEnter(e, toggleOpen); /*optionsRef.current?.focus()*/}}
                 id={props.id}
-                
             >
                 {props.selected}
-                {/* triangle symbol here */}
             </div>
             { isOpen && 
             <div
                 className="absolute w-full flex flex-col mt-0.5 z-10 max-h-72 overflow-y-auto shadow-2xl"
                 id={optionMenuId}
                 ref={optionsRef}
-                tabIndex={-1}   //this is needed for div to be focusable
-                //onKeyDown={e => onDown(e, focusFirstChild)}
+                
             >
                 {props.options.map((element, idx) => <Option key={idx} setSelected={props.setSelected} setOpen={setOpen} >{element}</Option>)}
             </div>
