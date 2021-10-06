@@ -60,6 +60,8 @@ const GET_ANIMES = gql`
                 isAdult
                 
                 episodes
+                format
+
                 genres
 
                 averageScore

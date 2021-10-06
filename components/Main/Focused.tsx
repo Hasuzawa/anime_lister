@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Link as LinkIcon, X } from "phosphor-react";
+import { MediaFormat } from "~/components/enums";
 
 interface Focused{
     media: any
@@ -71,6 +72,7 @@ const Focused = (props: any) => {
                     <NameAndProducer media={media} />
 
                     <SeasonAndTime media={media} />
+                    <EpisodeFormatStatus media={media} />
 
                     <div className="flex-none flex justify-evenly">
                         {media.genres.map((element: string, idx: number) => 
@@ -99,18 +101,14 @@ const Focused = (props: any) => {
 }
 
 interface FocusedSubComponents {
-    media: any
+    readonly media: any
 }
 
 const NameAndProducer = (props: FocusedSubComponents) => {
     const { media } = props;
+    // null | undefined field handled at cache
 
-    let name: string = "(Anime Unknown)";
-    if (media.title.english) {
-        name = media.title.english;
-    }
-
-    let producer: string = "(Producer Unknown)";
+    let producer: string = "(Unknown Producer)";
     if (media.studios.nodes[0]?.name) {
         producer = media.studios.nodes[0]?.name;
     }
@@ -118,7 +116,7 @@ const NameAndProducer = (props: FocusedSubComponents) => {
     return (
         <div className="flex-none">
             <Link href={media.siteUrl}><a>
-                <span className="block text-xl">{name}</span>
+                <span className="block text-xl">{media.title.english}</span>
             </a></Link>
             <span className="italic">{producer}</span>
         </div>
@@ -129,16 +127,16 @@ const SeasonAndTime = (props: FocusedSubComponents) => {
     const media = props.media;
     const { startDate, endDate } = media;
 
-    let season: string = "N/A";
+    let season: string = "?";
     if (media.season && media.seasonYear) {
         season = `${capitaliseFirstLetter(media.season)} ${media.seasonYear}`;
     }
     
-    let start = "N/A";
+    let start = "?";
     if (startDate.day && startDate.month && startDate.year) {
         start = `${startDate.day} ${numberToMonth.get(startDate.month)} ${startDate.year}`
     }
-    let end = "N/A";
+    let end = "?";
     if (endDate.day && endDate.month && endDate.year) {
         end = `${endDate.day} ${numberToMonth.get(endDate.month)} ${endDate.year}`
     }
@@ -151,6 +149,18 @@ const SeasonAndTime = (props: FocusedSubComponents) => {
     );
 }
 
+const EpisodeFormatStatus = (props: FocusedSubComponents) => {
+    const { media } = props;
+    // handling of null/undefined field is done at cache level in _app.tsx
+
+    return (
+        <div className="flex-none flex justify-between">
+            <span>{`Episode: ${media.episodes}`}</span>
+            <span>{`Format: ${media.format}`}</span>
+            <span>{`Status: ${media.status}`}</span>
+        </div>
+    );
+}
 
 const Statistics = (props: FocusedSubComponents) => {
     const { media } = props;
@@ -192,11 +202,6 @@ const Statistics = (props: FocusedSubComponents) => {
                     )
                 }
             })}
-            {/* { media.averageScore &&
-            <div className="flex flex-col items-center">
-                <span>Average Score</span>
-                <span>{media.averageScore}</span>
-            </div>}*/}
         </div>
     );
 }

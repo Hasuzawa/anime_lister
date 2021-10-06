@@ -67,4 +67,6 @@ describe("Click elements", () => {
         cy.get("#sortCriterionSelect").click()
         cy.get("#sortCriterionSelect-options").should("not.exist")
     })
+
+    
 })

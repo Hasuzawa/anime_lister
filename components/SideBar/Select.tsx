@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useState, Dispatch, SetStateAction, useEffect, useRef, forwardRef } from "react";
 import { motion, AnimateSharedLayout, AnimatePresence, Variants, Variant, Transition } from "framer-motion";
 import { onEnter, onDown } from "functions/KeyboardEvent";
 
@@ -15,7 +15,7 @@ interface SelectProps<T> {
 function Select<T> (props: SelectProps<T>): JSX.Element {
     const ref = useRef<HTMLDivElement>(null);
     
-    const [ isOpen, setOpen ] = useState<boolean>(false);
+    const [ isOpen, setOpen ] = useState<boolean>(false);   //controls menu open & close
     const toggleOpen = () => setOpen(!isOpen);
 
     useEffect(() => {
@@ -33,19 +33,31 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
     });
 
     const optionMenuId: string = props.id + "-options";
-    const optionsRef = useRef<HTMLDivElement>(null);
+    const optionRef = useRef<HTMLDivElement>(null);
 
-    // const focusFirstChild = () => {
-    //     const element = optionsRef.current;
-    //     console.log(element);
-    //     if (!element) { return }
-        
-    //     const children = element.children
-    //     if (children.length > 0) {
-    //         const child = element.firstChild as HTMLElement
-    //         child.focus();
-    //     }
-    // }
+    const focusOnOption = () => {
+        //optionRef.current?.focus()
+    }
+
+    const [ focused, setFocused ] = useState<number>(0);    // for focusing on an option
+    const numberOfOptions = props.options.length;
+
+    const previousOption = () => {
+        if (focused <= 0) {
+            setFocused(numberOfOptions - 1)
+        } else {
+            setFocused(focused - 1)
+        }
+    }
+
+    const nextOption = () => {
+        if (focused >= numberOfOptions - 1) {
+            setFocused(0)
+        } else {
+            setFocused(focused + 1)
+        }
+    }
+
 
     return (
         <div 
@@ -58,7 +70,7 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
                 className="bg-white w-full h-6 border border-gray-300 rounded-full px-2 flex justify-center items-center cursor-pointer overflow-hidden"
                 onClick={toggleOpen}
                 tabIndex={0}
-                onKeyDown={e => {onEnter(e, toggleOpen); /*optionsRef.current?.focus()*/}}
+                onKeyDown={e => {onEnter(e, toggleOpen); onEnter(e, focusOnOption);}}
                 id={props.id}
             >
                 {props.selected}
@@ -67,10 +79,17 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
             <div
                 className="absolute w-full flex flex-col mt-0.5 z-10 max-h-72 overflow-y-auto shadow-2xl"
                 id={optionMenuId}
-                ref={optionsRef}
-                
+                ref={optionRef}     //testing
             >
-                {props.options.map((element, idx) => <Option key={idx} setSelected={props.setSelected} setOpen={setOpen} >{element}</Option>)}
+                {props.options.map((element, idx) => 
+                    <Option
+                        key={idx}
+                        setSelected={props.setSelected}
+                        setOpen={setOpen}
+                        //ref={optionRef}
+                    >
+                        {element}
+                    </Option>)}
             </div>
             }
         </div>
@@ -84,7 +103,7 @@ interface OptionProps<T> {
     setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Option = <T,>(props: OptionProps<T>): JSX.Element => {
+const Option = <T,>(props: OptionProps<T>, optionRef: any): JSX.Element => {
 
     const handleSelection = () => {
         props.setSelected(props.children);
@@ -96,6 +115,7 @@ const Option = <T,>(props: OptionProps<T>): JSX.Element => {
             className="flex-none bg-white w-full h-8 flex justify-center items-center hover:bg-gray-300 cursor-pointer"
             onClick={handleSelection}
             onKeyDown={e => onEnter(e, handleSelection)}
+            //ref={optionRef}
         >
             {props.children}
         </span>

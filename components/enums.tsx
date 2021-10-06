@@ -8,7 +8,7 @@ enum SortCriterion {
     POPULARITY_DESC = "Popularity higher first",    //default
     SCORE = "Score lower first",
     SCORE_DESC = "Score higher first",
-    //TITLE_ENGLISH = "Alphabet A to Z",          //a b c...        // now is bugged
+    //TITLE_ENGLISH = "Alphabet A to Z",          //a b c...        // bugged now
     //TITLE_ENGLISH_DESC = "Alphabet Z to A",
     START_DATE = "Premiere earliest",
     START_DATE_DESC = "Premiere latest",
@@ -18,7 +18,7 @@ enum SortCriterion {
 
 /**
  * @description
- * filter by media status, defaults to NONE
+ * filter by media status, defaults to ANY
  */
 enum MediaStatus {
     ANY = "Any",
@@ -31,7 +31,7 @@ enum MediaStatus {
 
 /**
  * @description
- * filter by media format, defaults to NONE
+ * filter by media format, defaults to ANY
  */
 enum MediaFormat {
     ANY = "Any",
