@@ -4,6 +4,8 @@ effecive usage of screen area. I have noticed that too often one has to scroll a
 
 The website is a compact website for searching anime. The website is first released on 9 Oct 2021.
 
+[Link to website](https://anime-lister.vercel.app/)
+
 ## Blueplan
 <details open>
 
@@ -25,7 +27,7 @@ The website is a compact website for searching anime. The website is first relea
 </details>
 
 ## This project features
-
+<details open>
 <ul>
     <li>Apollo Client, GraphQL & third party API</li>
     <li>Filtering and sorting by GraphQL query</li>
@@ -37,9 +39,10 @@ The website is a compact website for searching anime. The website is first relea
     <li>generic components. Making components even more versatile</li>
     <li>navigable menu. High web acessibility</li>
 </ul>
+</details>
 
 ## Technical commentary
-
+<details open>
 <ul>
     <li>Connected to API using Apollo on POST method. It seems the head does not need to be set manually this time.</li>
     <li>I have included some animation that would shift HTML elements around. I am not sure how it would look in the end product.
@@ -54,3 +57,4 @@ The website is a compact website for searching anime. The website is first relea
     </li>
     <li>Revised select menu to be navigable by keyboard. Trust me when I say this is not a prevalent feature in web.
 </ul>
+</details>
