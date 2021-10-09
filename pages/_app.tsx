@@ -69,9 +69,7 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client} >
-      {/* <FilterFieldsContext.Provider value={new FilterFields()}> */}
         <Component {...pageProps} />
-      {/* </FilterFieldsContext.Provider> */}
     </ApolloProvider>
   );
 }

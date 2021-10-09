@@ -114,11 +114,10 @@ interface YScrollProps{
 const YScrollIndicator = (props: YScrollProps): JSX.Element => {
     return (
             //this is the y scroll indicator
-
             //-right-1 (4px to the right of content, i.e. where the border is)
-
             // viewport width = viewBox width => x-scale perserved
             // viewport height != viewBox height => y-scale NOT perserved   (in this case, it stretches/shrinks to parent height)
+            
             <motion.svg
                 width="4"
                 height="100%"

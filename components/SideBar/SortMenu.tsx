@@ -1,4 +1,3 @@
-import { SortAscending, SortDescending, ListNumbers} from "phosphor-react";
 import { useState, useContext } from "react";
 import { motion, usePresence } from "framer-motion";
 import { SortCriterion } from "~/components/enums";
@@ -12,15 +11,10 @@ import { observer } from "mobx-react-lite";
 const SortMenu = observer(() => {
     const sortFields = useContext(SortFieldsContext);
 
-    const [ hovered, setHovered ] = useState<boolean>(false);
-    const toggleHovered = () => setHovered(!hovered);
-
-
     const iconSize = 40;
     const commonProps = {
         size: iconSize,
     }
-    
 
     return (
         <>
@@ -33,8 +27,6 @@ const SortMenu = observer(() => {
                         width={200}
                         id={"sortCriterionSelect"}
                     />
-          
-
             </div>
         </>
     );

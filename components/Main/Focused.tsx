@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Link as LinkIcon, X } from "phosphor-react";
-import { MediaFormat } from "~/components/enums";
 
 interface Focused{
     media: any
@@ -56,7 +54,6 @@ const Focused = (props: any) => {
                 layoutId={props.media.id.toString()}
                 onClick={(e) => {e.stopPropagation()}}
             >
-                {/* <X size={44} className="absolute top-0 right-0 cursor-pointer" onClick={props.deselectSelected}/> */}
                 <div className="flex-none w-3/10 bg-black flex items-center">
                     {/* has vertical overflow problem */}
                     <div className="w-full max-w-full max-h-full flex-none block">    {/* for vertical center */}

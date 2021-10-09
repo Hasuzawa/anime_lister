@@ -9,12 +9,7 @@ import { SettingsContext } from "~/stores/Settings";
 
 import { observer } from "mobx-react-lite";
 
-interface Media{
-    id: number;
-    seasonYear: number;
-    //season: Season;
 
-}
 interface FeedProps{
     media: any;
     setSelected: Dispatch<SetStateAction<number | false>>;
@@ -68,7 +63,7 @@ const Feed = observer((props: FeedProps) => {
 
     return (
         <motion.div
-            className={"bg-white shadow-2xl " + styles.card}
+            className={"shadow-2xl " + styles.card}
             layoutId={media.id.toString()}
             layout
         >

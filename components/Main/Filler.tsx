@@ -1,4 +1,3 @@
-import { defaultFieldResolver } from "graphql";
 import styles from "~/styles/moduleCss/card.module.css";
 
 

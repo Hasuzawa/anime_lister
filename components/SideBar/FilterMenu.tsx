@@ -1,6 +1,4 @@
-import { Funnel } from "phosphor-react";
 import { useState, useContext } from "react";
-import { motion, usePresence } from "framer-motion";
 import Select from "~/components/SideBar/Select";
 import { MediaStatus, MediaFormat } from "~/components/enums";
 

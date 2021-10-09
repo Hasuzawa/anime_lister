@@ -14,9 +14,7 @@ import { SettingsContext } from "~/stores/Settings";
 import { observer } from "mobx-react-lite";
 import Filler from "~/components/Main/Filler";
 
-// pass arguments when using the useQuery hook
 
-// the string search yields very weird result
 const GET_ANIMES = gql`
     query ($page: Int, $perPage: Int, $year: Int, $status: MediaStatus, $format: MediaFormat, $sort: [MediaSort] = POPULARITY_DESC){
         Page(page: $page, perPage: $perPage) {

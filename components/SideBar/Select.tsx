@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction, useEffect, useRef, forwardRef } from "react";
+import { useState, Dispatch, SetStateAction, useEffect, useRef} from "react";
 import { motion, AnimateSharedLayout, AnimatePresence, Variants, Variant, Transition } from "framer-motion";
 import { onEnter, onUp, onDown } from "functions/KeyboardEvent";
 
@@ -13,14 +13,14 @@ interface SelectProps<T> {
 }
 
 function Select<T> (props: SelectProps<T>): JSX.Element {
-    const ref = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);   // for closing menu when clicked outside component
     
     const [ isOpen, setOpen ] = useState<boolean>(false);   //controls menu open & close
     const toggleOpen = () => setOpen(!isOpen);
 
     useEffect(() => {
         function handleClickOutside(event: any) {
-            if (ref.current && !ref.current.contains(event.target)) {   //note that this will run every click as long as
+            if (menuRef.current && !menuRef.current.contains(event.target)) {   //note that this will run every click as long as
                 setOpen(false);                                         //this component is mounted
             }
         }
@@ -34,7 +34,7 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
 
     const optionMenuId: string = props.id + "-options";
     //const optionRef = useRef<HTMLSpanElement>(null);      I tried using ref to focus on one elment,
-    // but it won't change immediately
+    // but it won't trigger a re-render immediately
     
 
     const [ focused, setFocused ] = useState<number>(0);    // for focusing on an option
@@ -67,19 +67,41 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
         }
     }
 
+    const selectRef = useRef<HTMLDivElement>(null);     // for focusing on menu
+
+    const focusOnMenu = () => {
+        console.log("esc pressed")
+        selectRef.current?.focus()
+    }
+
+    const keyboardEvents = (key: string): void => {
+        switch (key) {
+            case "Enter": toggleOpen(); break;
+            case "ArrowUp":
+            case "ArrowDown": focusOnOption(); break;
+            case "Esc":
+            case "Escape":  setOpen(false); break;
+            case "Tab": setOpen(false); break;      // close menu first before tab to another element
+            default: break;
+        }
+    }
+
+    // there is one last bug to fix, the menu should close when tab away (i.e. upon losing focus)
     return (
-        <div 
+        <div
             className={"relative text-black"}
-            style={{width: props.width}} ref={ref}
+            style={{width: props.width}}
             //onBlur={() => setOpen(false)}       // close menu if tab to another element (remember unhandled event will bubble up)
             // will cause handleSelection to bug
+            ref={menuRef}   // for closing menu when clicked outside
         >
             <div
                 className="bg-white w-full h-6 border border-gray-300 rounded-full px-2 flex justify-center items-center cursor-pointer overflow-hidden"
                 onClick={toggleOpen}
                 tabIndex={0}
-                onKeyDown={e => {onEnter(e, toggleOpen); onDown(e, focusOnOption);}}
+                onKeyDown={e => keyboardEvents(e.key)}
                 id={props.id}
+                ref={selectRef}     // for returning the focus in options
             >
                 {props.selected}
             </div>
@@ -97,6 +119,7 @@ function Select<T> (props: SelectProps<T>): JSX.Element {
 
                         previousOption={previousOption}
                         nextOption={nextOption}
+                        focusOnMenu={focusOnMenu}
                     >
                         {element}
                     </Option>)}
@@ -116,14 +139,16 @@ interface OptionProps<T> {
 
     previousOption: () => void
     nextOption: () => void
+    focusOnMenu: () => void
 }
 
-// wrapped component with generic is a difficult to type, check out https://fettblog.eu/typescript-react-generic-forward-refs/
+// wrapped component with generic is difficult to type, check out https://fettblog.eu/typescript-react-generic-forward-refs/
 
 const Option = <T,>(props: OptionProps<T>): JSX.Element => {
 
     const handleSelection = () => {
         props.setSelected(props.children);
+        props.focusOnMenu();
         props.setOpen(false);
     }
 
@@ -132,6 +157,8 @@ const Option = <T,>(props: OptionProps<T>): JSX.Element => {
             case "Enter": handleSelection(); break;
             case "ArrowUp": props.previousOption(); break;
             case "ArrowDown": props.nextOption(); break;
+            case "Esc":
+            case "Escape": props.setOpen(false); props.focusOnMenu(); break;    // close menu, return focus to menu
             default: break;
         }
     }

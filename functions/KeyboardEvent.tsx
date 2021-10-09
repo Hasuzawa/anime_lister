@@ -10,6 +10,8 @@ function onKeyDown(key: string) {
     return f;
 }
 
+
+// commonly used keys
 const onEnter = onKeyDown("Enter");
 const onEsc = onKeyDown("Escape");
 

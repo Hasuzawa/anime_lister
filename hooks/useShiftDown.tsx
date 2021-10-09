@@ -1,9 +1,12 @@
 //fire a callback event when shift key is held and another key is pressed.
-const useShiftDown = () => {
-    
+const useWhileShift = (event: React.KeyboardEvent, ) => {
+    if (event.shiftKey) {
+        switch (event.key) {
+            case "ArrowRight": ; break;
+            case "ArrowLeft": ; break;
+        }
+    }
 };
-//"ArrowDown"
-//"ArrowUp"
-//"Shift"   named keyboard events
 
-export default useShiftDown;
+
+export { useWhileShift};
