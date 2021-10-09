@@ -45,13 +45,13 @@ describe("Check Layout is correct" , () => {
         cy.get("#feeds")
     })
 
-    // it("Debug menu does not exist", () => {
-    //     cy.get("#debug-menu").should("not.exist")
-    // })
+    // Debugs, should not be visible in production build
+    it("Debug menu does not exist", () => {
+        cy.get("#debug-menu").should("not.exist")
+    })
 
+    it("Debug Selected state does not exist", () => {
+        cy.get("#debug-selected-state").should("not.exist")
+    })
 
-    
-    // it("", () => {
-    //     cy.get()
-    // })
 })

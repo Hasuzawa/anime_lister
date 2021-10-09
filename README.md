@@ -2,6 +2,8 @@
 This is a personal project on frontend API. One of the goal is to provide a streamlined experience and maximise the
 effecive usage of screen area. I have noticed that too often one has to scroll around to access the search bar or filter. This is a webpage that tackles the problem.
 
+The website is a compact website for searching anime. The website is first released on 9 Oct 2021.
+
 ## Blueplan
 <details open>
 
@@ -18,8 +20,7 @@ effecive usage of screen area. I have noticed that too often one has to scroll a
 | Versioning      | Git, GitHub                         |
 | Testing         | cypress                             |
 | CICD            | GitHub Action                       |
-| Deploy          | (?)                                 |
-| Analytics       | (?)                                 |
+| Deploy          | Vercel                              |
 
 </details>
 
@@ -36,11 +37,6 @@ effecive usage of screen area. I have noticed that too often one has to scroll a
     <li>generic components. Making components even more versatile</li>
     <li>navigable menu. High web acessibility</li>
 </ul>
-todo: aria-label, better keyboard interaction
-
-## In search of site name...
-~~Anime Chart~~ (taken, anichart)<br />
-~~Anime Lister~~ (taken, animelister)<br />
 
 ## Technical commentary
 

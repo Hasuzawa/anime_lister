@@ -58,7 +58,7 @@ const Home: NextPage = observer(() => {
         
         <meta property="og:locale"      content="en_US" />
         <meta property="og:type"        content="website" />
-        <meta property="og:url"         content="https://central-repository.vercel.app/" />
+        <meta property="og:url"         content="https://anime-lister.vercel.app/" />
         <meta property="og:title"       content="Anime Lister by Hasuzawa Yuichi" />
         <meta property="og:description" content="The website facilitates searching anime." />
 
@@ -74,7 +74,7 @@ const Home: NextPage = observer(() => {
       <SideBar />
       <Main />
 
-      <Debug />
+      {/* <Debug /> */}
     </div>
   )
 })

@@ -209,10 +209,13 @@ const Feeds = observer(() => {
                 <AnimateSharedLayout>
                     {results}
                 </AnimateSharedLayout>
-                <div className="absolute top-0 left-0 bg-blue-300">
+                {/* <div
+                    className="absolute top-0 left-0 bg-blue-300"
+                    id={"debug-selected-state"}
+                >
                     <span>current selected state is {selected.toString()}</span>
                     <button onClick={loadMore}>fetch more</button>
-                </div>
+                </div> */}
             </motion.div>
         </>
     );
