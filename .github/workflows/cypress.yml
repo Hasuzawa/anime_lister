@@ -1,0 +1,53 @@
+name: Integrated Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  test-Chrome:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    name: E2E on Chrome
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start cypress on Chrome
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
+          browser: chrome
+
+  test-Firefox:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start cypress on Firefox
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
+          browser: firefox
+  test-Edge:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]  #Edge is not yet available for Linux
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start cypress on Edge
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
+          browser: edge

@@ -49,6 +49,27 @@ const Home: NextPage = observer(() => {
     <div className="w-screen h-screen flex" >
       <Head>
         <title>Anime Lister</title>
+        <meta name="keywords"           content="anime, search anime, " />
+        <meta name="description"        content="Anime Lister is a compact one page application to search for anime.
+            The website is created by Hasuzawa Yuichi with data fetched from AniList GraphQL API" />
+        <meta name="author"             content="Hasuzawa Yuichi" />
+
+        {/*  Open Graph meta  */}
+        
+        <meta property="og:locale"      content="en_US" />
+        <meta property="og:type"        content="website" />
+        <meta property="og:url"         content="https://central-repository.vercel.app/" />
+        <meta property="og:title"       content="Anime Lister by Hasuzawa Yuichi" />
+        <meta property="og:description" content="The website facilitates searching anime." />
+
+        <meta property="og:site_name"   content="Anime Lister" />
+
+        <link rel="icon" href="/favicon.ico" />
+
+        {/*  theme color  */}
+
+        {/* <meta name="theme-color" media="(prefers-color-scheme: dark" content="black" /> */}
+        {/* <meta name="theme-color" media="(prefers-color-scheme: light" content="white" /> */}
       </Head>
       <SideBar />
       <Main />
